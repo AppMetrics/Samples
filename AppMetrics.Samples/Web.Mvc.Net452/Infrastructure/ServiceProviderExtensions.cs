@@ -29,10 +29,12 @@ namespace Web.Mvc.Net452.Infrastructure
             return services;
         }
 
-        public static void SetDependencyResolver(this IServiceCollection services)
+        public static IServiceProvider SetDependencyResolver(this IServiceCollection services)
         {
-            var resolver = new DefaultDependencyResolver(services.BuildServiceProvider());
+            var provider = services.BuildServiceProvider();
+            var resolver = new DefaultDependencyResolver(provider);
             DependencyResolver.SetResolver(resolver);
+            return provider;
         }
     }
 }

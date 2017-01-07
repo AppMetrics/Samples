@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using App.Metrics;
+using Web.Mvc.Net452.Infrastructure;
 
 namespace Web.Mvc.Net452.Controllers
 {
@@ -34,6 +35,8 @@ namespace Web.Mvc.Net452.Controllers
 
         public ActionResult Index()
         {
+            _metrics.Increment(SampleMetrics.BasicCounter);
+
             return View();
         }
     }
