@@ -38,7 +38,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Concurrency, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\App.Metrics.Concurrency.1.0.0-beta4\lib\net45\App.Metrics.Concurrency.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-beta4-build00144\lib\net45\App.Metrics.Concurrency.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

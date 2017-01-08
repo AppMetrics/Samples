@@ -1,0 +1,44 @@
+{
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "debugType": "portable"
+  },
+  "dependencies": {
+    "App.Metrics": "1.0.0-beta4-build00144",
+    "App.Metrics.Extensions.Reporting.Console": "1.0.0-beta4-build00144",
+    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-beta4-build00144",
+    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-beta4-build00144",
+    "HealthCheck.Samples": {
+      "target": "project"
+    },
+    "Metrics.Samples": {
+      "target": "project"
+    },
+    "Microsoft.Extensions.DependencyInjection": "1.1.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
+    "Microsoft.Extensions.Logging.Console": "1.1.0",
+    "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.1.0"
+    },
+    "NETStandard.Library": "1.6.1",
+    "Serilog.Extensions.Logging": "1.4.0-dev-10136",
+    "Serilog.Extensions.Logging.File": "1.0.0",
+    "Serilog.Sinks.Console": "2.2.0-dev-00719",
+    "System.Linq": "4.3.0"
+  },
+  "frameworks": {
+    "netcoreapp1.1": {
+      "imports": [
+        "dnxcore50"
+      ]
+    }
+  },
+  "runtimes": {
+    "win7-x64": {},
+    "ubuntu.14.04-x64": {},
+    "win10-x64": {}
+  },
+  "version": "1.0.0-*"
+}

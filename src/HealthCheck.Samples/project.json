@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "description": "HealthCheck.Samples Class Library",
+  "authors": [ "allan.hardy" ],
+
+  "buildOptions": { "debugType": "portable" },
+
+  "dependencies": {
+    "App.Metrics": "1.0.0-beta4-build00144"
+  },
+  "frameworks": {
+    "netcoreapp1.1": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  }
+}

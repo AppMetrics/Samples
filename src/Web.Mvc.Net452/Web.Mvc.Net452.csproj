@@ -45,19 +45,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="App.Metrics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.1.0.0-beta4-build00143\lib\net452\App.Metrics.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.1.0.0-beta4-build00144\lib\net452\App.Metrics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Concurrency, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-beta4-build00143\lib\net45\App.Metrics.Concurrency.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-beta4-build00144\lib\net45\App.Metrics.Concurrency.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.InfluxDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta4-build00143\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta4-build00144\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.TextFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.TextFile.1.0.0-beta4-build00143\lib\net452\App.Metrics.Extensions.Reporting.TextFile.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.TextFile.1.0.0-beta4-build00144\lib\net452\App.Metrics.Extensions.Reporting.TextFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -150,7 +150,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Serilog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Serilog.Extensions.Logging.1.3.1\lib\net45\Serilog.Extensions.Logging.dll</HintPath>
+      <HintPath>..\..\packages\Serilog.Extensions.Logging.1.4.0-dev-10136\lib\net45\Serilog.Extensions.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
