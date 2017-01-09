@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Web.Hosting;
+using System.Web.Mvc;
 using App.Metrics;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
