@@ -32,6 +32,8 @@ namespace Web.Mvc.Net452
                .WriteTo.RollingFile(Path.Combine($@"C:\logs\{Assembly.GetExecutingAssembly().GetName().Name}", "log-{Date}.txt"))
                .CreateLogger();
 
+            app.UseMetrics(provider);
+
             var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
 
             loggerFactory.AddSerilog(Log.Logger);
@@ -82,6 +84,11 @@ namespace Web.Mvc.Net452
                     factory.RegisterProcessPrivateMemorySizeHealthCheck("Private Memory Size", 200);
                     factory.RegisterProcessVirtualMemorySizeHealthCheck("Virtual Memory Size", 200);
                     factory.RegisterProcessPhysicalMemoryHealthCheck("Working Set", 200);
+                })
+                .AddJsonSerialization()
+                .AddMetricsMiddleware(options =>
+                {
+                    
                 });
         }
     }
