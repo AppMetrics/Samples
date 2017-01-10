@@ -4,10 +4,10 @@
     "debugType": "portable"
   },
   "dependencies": {
-    "App.Metrics": "1.0.0-beta4-build00144",
-    "App.Metrics.Extensions.Reporting.Console": "1.0.0-beta4-build00144",
-    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-beta4-build00144",
-    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-beta4-build00144",
+    "App.Metrics": "1.0.0-beta4-build00154",
+    "App.Metrics.Extensions.Reporting.Console": "1.0.0-beta4-build00154",
+    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-beta4-build00154",
+    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-beta4-build00154",
     "HealthCheck.Samples": {
       "target": "project"
     },
