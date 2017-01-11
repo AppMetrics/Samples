@@ -26,6 +26,9 @@ namespace Web.Mvc.Net452
         {            
             var services = new ServiceCollection();
             ConfigureServices(services);
+
+            //DEVNOTE: If already using Autofac for example for DI, you would just build the 
+            // servicecollection, resolve IMetrics and register that with your container instead.
             var provider = services.SetDependencyResolver();
 
             Log.Logger = new LoggerConfiguration()
