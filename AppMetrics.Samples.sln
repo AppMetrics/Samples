@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net4.5.2", "Net4.5.2", "{99977309-2AC1-49C9-968A-BB6FBE71149E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.Net452", "src\Console.Net452\Console.Net452.csproj", "{BB855553-99D2-4EE7-9BBB-46B15AA014EA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Mvc.Net452", "src\Web.Mvc.Net452\Web.Mvc.Net452.csproj", "{62900673-5AE7-4C97-84CF-CDAB361C7B9C}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Api.InfluxDB.Sample", "src\Api.InfluxDB.Sample\Api.InfluxDB.Sample.xproj", "{8FA8D248-3DA8-4C29-B436-0FFDD7BEF400}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HealthCheck.Samples", "src\HealthCheck.Samples\HealthCheck.Samples.xproj", "{3A92B51E-86B6-4578-9C09-035D75AEE6A1}"
@@ -27,11 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafa
 		grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json = grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json
 		grafana_dashboards\Api.Sample.InfluxDB.json = grafana_dashboards\Api.Sample.InfluxDB.json
 		grafana_dashboards\App.Sample.InfluxDB.json = grafana_dashboards\App.Sample.InfluxDB.json
-		grafana_dashboards\Web.Api.Net452.InfluxDB.json = grafana_dashboards\Web.Api.Net452.InfluxDB.json
-		grafana_dashboards\Web.Mvc.Net452.InfluxDB.json = grafana_dashboards\Web.Mvc.Net452.InfluxDB.json
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Api.Net452", "src\Web.Api.Net452\Web.Api.Net452.csproj", "{3A82546A-F3A2-40EB-A14A-47637B032AFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BB855553-99D2-4EE7-9BBB-46B15AA014EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB855553-99D2-4EE7-9BBB-46B15AA014EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB855553-99D2-4EE7-9BBB-46B15AA014EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB855553-99D2-4EE7-9BBB-46B15AA014EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62900673-5AE7-4C97-84CF-CDAB361C7B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62900673-5AE7-4C97-84CF-CDAB361C7B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62900673-5AE7-4C97-84CF-CDAB361C7B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62900673-5AE7-4C97-84CF-CDAB361C7B9C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FA8D248-3DA8-4C29-B436-0FFDD7BEF400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FA8D248-3DA8-4C29-B436-0FFDD7BEF400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FA8D248-3DA8-4C29-B436-0FFDD7BEF400}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,17 +53,8 @@ Global
 		{B42B22C4-C87A-499A-AB4F-06EE599AF2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B42B22C4-C87A-499A-AB4F-06EE599AF2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B42B22C4-C87A-499A-AB4F-06EE599AF2FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A82546A-F3A2-40EB-A14A-47637B032AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A82546A-F3A2-40EB-A14A-47637B032AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A82546A-F3A2-40EB-A14A-47637B032AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A82546A-F3A2-40EB-A14A-47637B032AFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{BB855553-99D2-4EE7-9BBB-46B15AA014EA} = {99977309-2AC1-49C9-968A-BB6FBE71149E}
-		{62900673-5AE7-4C97-84CF-CDAB361C7B9C} = {99977309-2AC1-49C9-968A-BB6FBE71149E}
-		{3A82546A-F3A2-40EB-A14A-47637B032AFD} = {99977309-2AC1-49C9-968A-BB6FBE71149E}
 	EndGlobalSection
 EndGlobal
