@@ -52,7 +52,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Owin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.1.0.0-beta4-build00158\lib\net452\App.Metrics.Extensions.Owin.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.1.0.0-alpha1-build00159\lib\net452\App.Metrics.Extensions.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="App.Metrics.Extensions.Owin.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.WebApi.1.0.0-alpha1-build00162\lib\net452\App.Metrics.Extensions.Owin.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Formatters.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -178,6 +182,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -202,7 +207,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Infrastructure\DefaultDependencyResolver.cs" />
-    <Compile Include="Infrastructure\MetricsWebApiMessageHandler.cs" />
     <Compile Include="Infrastructure\SampleMetrics.cs" />
     <Compile Include="Infrastructure\ServiceProviderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

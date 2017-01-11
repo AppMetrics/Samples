@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Web.Http;
 using App.Metrics;
+using App.Metrics.Extensions.Owin.WebApi;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
 using Owin;

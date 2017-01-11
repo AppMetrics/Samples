@@ -56,6 +56,10 @@
       <HintPath>..\..\packages\App.Metrics.Extensions.Owin.1.0.0-beta4-build00158\lib\net452\App.Metrics.Extensions.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="App.Metrics.Extensions.Owin.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.Mvc.1.0.0-alpha1-build00162\lib\net452\App.Metrics.Extensions.Owin.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.InfluxDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta4-build00154\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
       <Private>True</Private>
@@ -254,8 +258,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\MetricsMvcRouteHandler.cs" />
-    <Compile Include="Infrastructure\MetricsMvcHttpHandler.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Infrastructure\SampleMetrics.cs" />
