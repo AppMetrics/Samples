@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafa
 		grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json = grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json
 		grafana_dashboards\Api.Sample.InfluxDB.json = grafana_dashboards\Api.Sample.InfluxDB.json
 		grafana_dashboards\App.Sample.InfluxDB.json = grafana_dashboards\App.Sample.InfluxDB.json
+		grafana_dashboards\Web.Api.Net452.InfluxDB.json = grafana_dashboards\Web.Api.Net452.InfluxDB.json
+		grafana_dashboards\Web.Mvc.Net452.InfluxDB.json = grafana_dashboards\Web.Mvc.Net452.InfluxDB.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Api.Net452", "src\Web.Api.Net452\Web.Api.Net452.csproj", "{3A82546A-F3A2-40EB-A14A-47637B032AFD}"
