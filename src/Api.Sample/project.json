@@ -5,9 +5,9 @@
     "debugType": "portable"
   },
   "dependencies": {
-    "App.Metrics.Extensions.Mvc": "1.0.0-beta4-build00154",
-    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-beta4-build00155",
-    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-beta4-build00155",
+    "App.Metrics.Extensions.Mvc": "1.0.0-beta4",
+    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-beta4",
+    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-beta4",
     "App.Metrics.Formatters.Json": "1.0.0-beta4-build00155",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.1.0-preview4-final",
