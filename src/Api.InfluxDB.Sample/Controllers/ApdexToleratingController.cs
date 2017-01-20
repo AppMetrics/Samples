@@ -27,7 +27,7 @@ namespace Api.InfluxDB.Sample.Controllers
         public int Get()
         {
             var duration = _durationForApdexTesting.NextToleratingDuration;
-            _metrics.Advanced.Clock.Advance(TimeUnit.Milliseconds, duration);
+            _metrics.Clock.Advance(TimeUnit.Milliseconds, duration);
 
             return duration;
         }

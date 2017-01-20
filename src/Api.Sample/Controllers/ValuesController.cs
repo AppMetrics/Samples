@@ -44,24 +44,24 @@ namespace Api.Sample.Controllers
                 MeasurementUnit = Unit.Calls
             };
 
-            _metrics.Mark(httpStatusMeter, 70, "200");
-            _metrics.Mark(httpStatusMeter, 10, "500");
-            _metrics.Mark(httpStatusMeter, 20, "401");
+            _metrics.Measure.Meter.Mark(httpStatusMeter, 70, "200");
+            _metrics.Measure.Meter.Mark(httpStatusMeter, 10, "500");
+            _metrics.Measure.Meter.Mark(httpStatusMeter, 20, "401");
 
-            _metrics.Increment(MetricsRegistry.Counters.TestCounter);
-            _metrics.Increment(MetricsRegistry.Counters.TestCounter, 4);
-            _metrics.Decrement(MetricsRegistry.Counters.TestCounter, 2);
+            _metrics.Measure.Counter.Increment(MetricsRegistry.Counters.TestCounter);
+            _metrics.Measure.Counter.Increment(MetricsRegistry.Counters.TestCounter, 4);
+            _metrics.Measure.Counter.Decrement(MetricsRegistry.Counters.TestCounter, 2);
 
             var process = Process.GetCurrentProcess();
             var physicalMemoryGauge = new FunctionGauge(() => process.WorkingSet64);
 
-            _metrics.Gauge(MetricsRegistry.Gauges.TestGauge, () => physicalMemoryGauge.Value);
+            _metrics.Measure.Gauge.SetValue(MetricsRegistry.Gauges.TestGauge, () => physicalMemoryGauge.Value);
 
-            _metrics.Advanced.Gauge(MetricsRegistry.Gauges.DerivedGauge,
+            _metrics.Measure.Gauge.SetValue(MetricsRegistry.Gauges.DerivedGauge,
                 () => new DerivedGauge(physicalMemoryGauge, g => g / 1024.0 / 1024.0));
 
-            var cacheHits = _metrics.Advanced.Meter(MetricsRegistry.Meters.CacheHits);
-            var calls = _metrics.Advanced.Timer(MetricsRegistry.Timers.DatabaseQueryTimer);
+            var cacheHits = _metrics.Provider.Meter.Instance(MetricsRegistry.Meters.CacheHits);
+            var calls = _metrics.Provider.Timer.Instance(MetricsRegistry.Timers.DatabaseQueryTimer);
 
             var cacheHit = Rnd.Next(0, 2) == 0;
             if (cacheHit)
@@ -74,32 +74,32 @@ namespace Api.Sample.Controllers
                 Thread.Sleep(cacheHit ? 10 : 100);
             }
 
-            using (_metrics.Track(MetricsRegistry.ApdexScores.TestApdex))
+            using (_metrics.Measure.Apdex.Track(MetricsRegistry.ApdexScores.TestApdex))
             {
                 Thread.Sleep(cacheHit ? 10 : 100);
             }
 
-            _metrics.Advanced.Gauge(MetricsRegistry.Gauges.CacheHitRatioGauge, () => new HitRatioGauge(cacheHits, calls, m => m.OneMinuteRate));
+            _metrics.Measure.Gauge.SetValue(MetricsRegistry.Gauges.CacheHitRatioGauge, () => new HitRatioGauge(cacheHits, calls, m => m.OneMinuteRate));
 
-            var histogram = _metrics.Advanced.Histogram(MetricsRegistry.Histograms.TestHAdvancedistogram);
+            var histogram = _metrics.Provider.Histogram.Instance(MetricsRegistry.Histograms.TestHAdvancedistogram);
             histogram.Update(Rnd.Next(1, 20));
 
-            _metrics.Update(MetricsRegistry.Histograms.TestHistogram, Rnd.Next(20, 40));
+            _metrics.Measure.Histogram.Update(MetricsRegistry.Histograms.TestHistogram, Rnd.Next(20, 40));
 
-            _metrics.Time(MetricsRegistry.Timers.TestTimer, () => Thread.Sleep(20), "value1");
-            _metrics.Time(MetricsRegistry.Timers.TestTimer, () => Thread.Sleep(25), "value2");
+            _metrics.Measure.Timer.Time(MetricsRegistry.Timers.TestTimer, () => Thread.Sleep(20), "value1");
+            _metrics.Measure.Timer.Time(MetricsRegistry.Timers.TestTimer, () => Thread.Sleep(25), "value2");
 
-            using (_metrics.Time(MetricsRegistry.Timers.TestTimerTwo))
+            using (_metrics.Measure.Timer.Time(MetricsRegistry.Timers.TestTimerTwo))
             {
                 Thread.Sleep(15);
             }
 
-            using (_metrics.Time(MetricsRegistry.Timers.TestTimerTwo, "value1"))
+            using (_metrics.Measure.Timer.Time(MetricsRegistry.Timers.TestTimerTwo, "value1"))
             {
                 Thread.Sleep(20);
             }
 
-            using (_metrics.Time(MetricsRegistry.Timers.TestTimerTwo, "value2"))
+            using (_metrics.Measure.Timer.Time(MetricsRegistry.Timers.TestTimerTwo, "value2"))
             {
                 Thread.Sleep(25);
             }

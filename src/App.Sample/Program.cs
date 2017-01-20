@@ -51,7 +51,7 @@ namespace App.Sample
             var task = scheduler.Interval(
                 TimeSpan.FromMilliseconds(300), TaskCreationOptions.LongRunning,() =>
                 {
-                    using (application.Metrics.Track(AppMetricsRegistry.ApdexScores.AppApdex))
+                    using (application.Metrics.Measure.Apdex.Track(AppMetricsRegistry.ApdexScores.AppApdex))
                     {
                         setCounterSample.RunSomeRequests();
                         setMeterSample.RunSomeRequests();
@@ -60,26 +60,26 @@ namespace App.Sample
                         simpleMetrics.RunSomeRequests();
                     }
 
-                    application.Metrics.Gauge(AppMetricsRegistry.Gauges.Errors, () => 1);
-                    application.Metrics.Gauge(AppMetricsRegistry.Gauges.PercentGauge, () => 1);
-                    application.Metrics.Gauge(AppMetricsRegistry.Gauges.ApmGauge, () => 1);
-                    application.Metrics.Gauge(AppMetricsRegistry.Gauges.ParenthesisGauge, () => 1);
-                    application.Metrics.Gauge(AppMetricsRegistry.Gauges.GaugeWithNoValue, () => double.NaN);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.Errors, () => 1);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.PercentGauge, () => 1);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.ApmGauge, () => 1);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.ParenthesisGauge, () => 1);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.GaugeWithNoValue, () => double.NaN);
 
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.CpuUsageTotal, () =>
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.CpuUsageTotal, () =>
                     {
                         cpuUsage.CallCpu();
                         return cpuUsage.CpuUsageTotal;
                     });
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.ProcessPagedMemorySizeGauge, () => process.PagedMemorySize64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.ProcessPeekPagedMemorySizeGauge, () => process.PeakPagedMemorySize64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.ProcessPeekVirtualMemorySizeGauge,
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPagedMemorySizeGauge, () => process.PagedMemorySize64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekPagedMemorySizeGauge, () => process.PeakPagedMemorySize64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekVirtualMemorySizeGauge,
                         () => process.PeakVirtualMemorySize64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.ProcessPeekWorkingSetSizeGauge, () => process.WorkingSet64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.ProcessPrivateMemorySizeGauge, () => process.PrivateMemorySize64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.ProcessVirtualMemorySizeGauge, () => process.VirtualMemorySize64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.SystemNonPagedMemoryGauge, () => process.NonpagedSystemMemorySize64);
-                    application.Metrics.Gauge(AppMetricsRegistry.ProcessMetrics.SystemPagedMemorySizeGauge, () => process.PagedSystemMemorySize64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekWorkingSetSizeGauge, () => process.WorkingSet64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPrivateMemorySizeGauge, () => process.PrivateMemorySize64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessVirtualMemorySizeGauge, () => process.VirtualMemorySize64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.SystemNonPagedMemoryGauge, () => process.NonpagedSystemMemorySize64);
+                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.SystemPagedMemorySizeGauge, () => process.PagedSystemMemorySize64);
                 }, cancellationTokenSource.Token);
 
             application.Reporter.RunReports(application.Metrics, cancellationTokenSource.Token);

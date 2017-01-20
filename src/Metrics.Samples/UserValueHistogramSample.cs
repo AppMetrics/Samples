@@ -13,7 +13,7 @@ namespace Metrics.Samples
         {
             _metrics = metrics;
 
-            _histogram = _metrics.Advanced.Histogram(SampleMetricsRegistry.Histograms.Results);
+            _histogram = _metrics.Provider.Histogram.Instance(SampleMetricsRegistry.Histograms.Results);
         }
 
         public void Process(string documentId)

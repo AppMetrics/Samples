@@ -5,16 +5,16 @@ namespace Metrics.Samples
 {
     public class SetMeterSample
     {
-        private readonly IMeter _errorMeter;
         private readonly IMeter _commandMeter;
+        private readonly IMeter _errorMeter;
         private static IMetrics _metrics;
 
         public SetMeterSample(IMetrics metrics)
         {
             _metrics = metrics;
 
-            _errorMeter = _metrics.Advanced.Meter(SampleMetricsRegistry.Meters.Errors);
-            _commandMeter = _metrics.Advanced.Meter(SampleMetricsRegistry.Meters.CommandMeter);
+            _errorMeter = _metrics.Provider.Meter.Instance(SampleMetricsRegistry.Meters.Errors);
+            _commandMeter = _metrics.Provider.Meter.Instance(SampleMetricsRegistry.Meters.CommandMeter);
         }
 
         public void Process(ICommand command)
@@ -34,18 +34,31 @@ namespace Metrics.Samples
             for (var i = 0; i < 30; i++)
             {
                 var commandIndex = new Random().Next() % 5;
-                if (commandIndex == 0) Process(new SendEmail());
-                if (commandIndex == 1) Process(new ShipProduct());
-                if (commandIndex == 2) Process(new BillCustomer());
-                if (commandIndex == 3) Process(new MakeInvoice());
-                if (commandIndex == 4) Process(new MarkAsPreffered());
+
+                if (commandIndex == 0)
+                {
+                    Process(new SendEmail());
+                }
+                if (commandIndex == 1)
+                {
+                    Process(new ShipProduct());
+                }
+                if (commandIndex == 2)
+                {
+                    Process(new BillCustomer());
+                }
+                if (commandIndex == 3)
+                {
+                    Process(new MakeInvoice());
+                }
+                if (commandIndex == 4)
+                {
+                    Process(new MarkAsPreffered());
+                }
             }
         }
 
-        private void ActualCommandProcessing(ICommand command)
-        {
-            _commandMeter.Mark(command.GetType().Name);
-        }
+        private void ActualCommandProcessing(ICommand command) { _commandMeter.Mark(command.GetType().Name); }
 
         public interface ICommand
         {
