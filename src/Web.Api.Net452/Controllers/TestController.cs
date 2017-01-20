@@ -24,7 +24,7 @@ namespace Web.Api.Net452.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            _metrics.Increment(SampleMetrics.BasicCounter);
+            _metrics.Measure.Counter.Increment(SampleMetrics.BasicCounter);
 
             return Ok("testing");
         }

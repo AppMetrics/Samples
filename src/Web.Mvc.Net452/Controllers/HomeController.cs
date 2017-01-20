@@ -35,7 +35,7 @@ namespace Web.Mvc.Net452.Controllers
 
         public ActionResult Index()
         {
-            _metrics.Increment(SampleMetrics.BasicCounter);
+            _metrics.Measure.Counter.Increment(SampleMetrics.BasicCounter);
 
             return View();
         }
