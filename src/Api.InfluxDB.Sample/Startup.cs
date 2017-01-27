@@ -3,13 +3,16 @@
 
 using System;
 using System.IO;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Api.InfluxDB.Sample.ForTesting;
 using App.Metrics.Extensions.Middleware.DependencyInjection.Options;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
-using App.Metrics.Filtering;
 using App.Metrics.Infrastructure;
 using App.Metrics.Reporting.Interfaces;
+using App.Metrics.Scheduling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -22,14 +25,16 @@ namespace Api.InfluxDB.Sample
 {
     public class Startup
     {
-        static readonly Random Random = new Random();
+        public static readonly string InfluxDbDatabase = "appmetricsinfluxsample";
+        public static readonly Uri InfluxDbUri = new Uri("http://127.0.0.1:8086");
+        public static readonly Uri ApiBaseAddress = new Uri("http://localhost:50203/");
 
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -42,17 +47,13 @@ namespace Api.InfluxDB.Sample
             ILoggerFactory loggerFactory,
             IApplicationLifetime lifetime)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.RollingFile(Path.Combine($@"C:\logs\{env.ApplicationName}", "log-{Date}.txt"))
-                .CreateLogger();
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            loggerFactory.AddSerilog(Log.Logger);
 
             app.UseMetrics();
             app.UseMetricsReporting(lifetime);
+
+            RunRequestsToSample(lifetime.ApplicationStopping);
 
             app.UseMvc();
         }
@@ -72,10 +73,6 @@ namespace Api.InfluxDB.Sample
                 .AddReporting(
                     factory =>
                     {
-                        var influxFlushFilter = new DefaultMetricsFilter()
-                            .WithEnvironmentInfo(false)
-                            .WithHealthChecks(false);
-
                         factory.AddInfluxDb(
                             new InfluxDBReporterSettings
                             {
@@ -85,10 +82,9 @@ namespace Api.InfluxDB.Sample
                                                  BackoffPeriod = TimeSpan.FromSeconds(30),
                                                  Timeout = TimeSpan.FromSeconds(3)
                                              },
-                                InfluxDbSettings = new InfluxDBSettings("appmetricsinfluxsample", new Uri("http://127.0.0.1:8086")),
+                                InfluxDbSettings = new InfluxDBSettings(InfluxDbDatabase, InfluxDbUri),
                                 ReportInterval = TimeSpan.FromSeconds(5)
-                            },
-                            filter: influxFlushFilter);
+                            });
                     })
                 .AddHealthChecks()
                 .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
@@ -102,6 +98,28 @@ namespace Api.InfluxDB.Sample
                     var options = provider.GetRequiredService<AspNetMetricsOptions>();
                     return new RequestDurationForApdexTesting(options.ApdexTSeconds);
                 });
+        }
+
+        private static void RunRequestsToSample(CancellationToken token)
+        {
+            var scheduler = new DefaultTaskScheduler();
+            var httpClient = new HttpClient
+            {
+                BaseAddress = ApiBaseAddress
+            };
+
+            Task.Run(() => scheduler.Interval(
+                TimeSpan.FromMilliseconds(100),
+                TaskCreationOptions.None,
+                async () =>
+                {
+                    var satisfied = httpClient.GetAsync("api/apdexsatisfied", token);
+                    var tolerating = httpClient.GetAsync("api/apdextolerating", token);
+                    var frustrating = httpClient.GetAsync("api/apdexfrustrating", token);
+
+                    await Task.WhenAll(satisfied, tolerating, frustrating);
+                },
+                token), token);
         }
     }
 }
