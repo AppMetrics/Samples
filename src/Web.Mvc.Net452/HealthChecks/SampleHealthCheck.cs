@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Core;
+using App.Metrics.Health;
 
 namespace Web.Mvc.Net452.HealthChecks
 {

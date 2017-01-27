@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using App.Metrics;
-using App.Metrics.Reporting.Interfaces;
+using App.Metrics.Reporting.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Console.Net452

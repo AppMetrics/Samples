@@ -2,11 +2,11 @@
 using System.IO;
 using System.Reflection;
 using System.Web.Hosting;
-using System.Web.Mvc;
 using App.Metrics;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
 using App.Metrics.Extensions.Reporting.TextFile;
+using App.Metrics.Reporting.Abstractions;
 using App.Metrics.Reporting.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

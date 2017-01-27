@@ -6,6 +6,7 @@ using App.Metrics.Extensions.Reporting.Console;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
 using App.Metrics.Extensions.Reporting.TextFile;
+using App.Metrics.Filtering;
 using App.Metrics.Reporting.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
