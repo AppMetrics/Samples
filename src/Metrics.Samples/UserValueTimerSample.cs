@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using App.Metrics;
+using App.Metrics.Timer.Abstractions;
 
 namespace Metrics.Samples
 {

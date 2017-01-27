@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using App.Metrics;
 using App.Metrics.Core;
 using App.Metrics.Core.Options;
+using App.Metrics.Gauge;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Sample.Controllers

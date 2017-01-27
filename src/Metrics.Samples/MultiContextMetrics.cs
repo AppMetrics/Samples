@@ -1,4 +1,7 @@
 ﻿using App.Metrics;
+using App.Metrics.Counter.Abstractions;
+using App.Metrics.Meter.Abstractions;
+using App.Metrics.Timer.Abstractions;
 
 namespace Metrics.Samples
 {

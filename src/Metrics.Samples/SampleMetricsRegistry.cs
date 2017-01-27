@@ -1,5 +1,6 @@
 ﻿using App.Metrics;
 using App.Metrics.Core.Options;
+using App.Metrics.Tagging;
 
 namespace Metrics.Samples
 {

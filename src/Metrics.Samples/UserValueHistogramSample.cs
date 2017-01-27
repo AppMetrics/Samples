@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Metrics;
+using App.Metrics.Histogram.Abstractions;
 
 namespace Metrics.Samples
 {

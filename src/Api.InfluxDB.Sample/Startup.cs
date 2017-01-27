@@ -1,12 +1,15 @@
-﻿using System;
+﻿// Copyright (c) Allan Hardy. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
 using System.IO;
 using Api.InfluxDB.Sample.ForTesting;
-using App.Metrics;
 using App.Metrics.Extensions.Middleware.DependencyInjection.Options;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
+using App.Metrics.Filtering;
+using App.Metrics.Infrastructure;
 using App.Metrics.Reporting.Interfaces;
-using App.Metrics.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,8 +36,11 @@ namespace Api.InfluxDB.Sample
 
         public IConfigurationRoot Configuration { get; set; }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory,
+            IApplicationLifetime lifetime)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -63,35 +69,39 @@ namespace Api.InfluxDB.Sample
                 .AddMetrics(Configuration.GetSection("AppMetrics"), options => options.GlobalTags.Add("app", "sample app"))
                 .AddClockType<TestClock>()
                 .AddJsonSerialization()
-                .AddReporting(factory =>
-                {
-                    var influxFlushFilter = new DefaultMetricsFilter()
-                        .WithEnvironmentInfo(false)
-                        .WithHealthChecks(false);
-
-                    factory.AddInfluxDb(new InfluxDBReporterSettings
+                .AddReporting(
+                    factory =>
                     {
-                        HttpPolicy = new HttpPolicy
-                        {
-                          FailuresBeforeBackoff  = 3,
-                          BackoffPeriod = TimeSpan.FromSeconds(30),
-                          Timeout = TimeSpan.FromSeconds(3)
-                        },
-                        InfluxDbSettings = new InfluxDBSettings("appmetricsinfluxsample", new Uri("http://127.0.0.1:8086")),                    
-                        ReportInterval = TimeSpan.FromSeconds(5)
-                    }, filter: influxFlushFilter);
-                })
+                        var influxFlushFilter = new DefaultMetricsFilter()
+                            .WithEnvironmentInfo(false)
+                            .WithHealthChecks(false);
+
+                        factory.AddInfluxDb(
+                            new InfluxDBReporterSettings
+                            {
+                                HttpPolicy = new HttpPolicy
+                                             {
+                                                 FailuresBeforeBackoff = 3,
+                                                 BackoffPeriod = TimeSpan.FromSeconds(30),
+                                                 Timeout = TimeSpan.FromSeconds(3)
+                                             },
+                                InfluxDbSettings = new InfluxDBSettings("appmetricsinfluxsample", new Uri("http://127.0.0.1:8086")),
+                                ReportInterval = TimeSpan.FromSeconds(5)
+                            },
+                            filter: influxFlushFilter);
+                    })
                 .AddHealthChecks()
                 .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
 
             services.AddTransient<Func<double, RequestDurationForApdexTesting>>(
                 provider => { return apdexTSeconds => new RequestDurationForApdexTesting(apdexTSeconds); });
 
-            services.AddTransient(provider =>
-            {
-                var options = provider.GetRequiredService<AspNetMetricsOptions>();
-                return new RequestDurationForApdexTesting(options.ApdexTSeconds);
-            });
+            services.AddTransient(
+                provider =>
+                {
+                    var options = provider.GetRequiredService<AspNetMetricsOptions>();
+                    return new RequestDurationForApdexTesting(options.ApdexTSeconds);
+                });
         }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Core;
+using App.Metrics.Health;
 
 namespace Api.InfluxDB.Sample.HealthChecks
 {
     public class SampleHealthCheck : HealthCheck
     {
-        public SampleHealthCheck() : base("Sample Healthy")
-        {
-        }
+        public SampleHealthCheck() : base("Sample Healthy") { }
 
         protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Metrics;
+using App.Metrics.Meter.Abstractions;
 
 namespace Metrics.Samples
 {

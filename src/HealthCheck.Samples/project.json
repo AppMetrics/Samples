@@ -6,7 +6,7 @@
   "buildOptions": { "debugType": "portable" },
 
   "dependencies": {
-    "App.Metrics": "1.0.0-beta5-build00228"
+    "App.Metrics": "1.0.0-beta5-build00244"
   },
   "frameworks": {
     "netcoreapp1.1": {

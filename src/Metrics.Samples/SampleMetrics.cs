@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using System.Threading;
 using App.Metrics;
 using App.Metrics.Core;
+using App.Metrics.Counter;
+using App.Metrics.Counter.Abstractions;
 using App.Metrics.Data;
+using App.Metrics.Gauge;
+using App.Metrics.Histogram.Abstractions;
+using App.Metrics.Meter.Abstractions;
+using App.Metrics.Meter.Extensions;
+using App.Metrics.Timer.Abstractions;
 
 namespace Metrics.Samples
 {
@@ -57,7 +64,7 @@ namespace Metrics.Samples
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.DataValue, () => _someValue);
 
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.CustomRatioGauge, 
-                () => ValueReader.GetCurrentValue(_totalRequestsCounter).Count / ValueReader.GetCurrentValue(_meter).FiveMinuteRate);
+                () => _totalRequestsCounter.Value().Count / _meter.Value().FiveMinuteRate);
             
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.Ratio, () => new HitRatioGauge(_meter, _timer, m => m.OneMinuteRate));
         }
