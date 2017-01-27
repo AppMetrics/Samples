@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafana_dashboards", "{78AD3B65-F6E0-469E-B028-9F3D71B1AF5B}"
+	ProjectSection(SolutionItems) = preProject
+		grafana_dashboards\Reservoir.Samples.InfluxDB.json = grafana_dashboards\Reservoir.Samples.InfluxDB.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26DDEBFD-A1E1-4BCA-B586-F15586817ADF}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Reservoirs.Samples", "src\Reservoirs.Samples\Reservoirs.Samples.xproj", "{4F585C37-9867-49DF-89B3-62914D34E317}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F585C37-9867-49DF-89B3-62914D34E317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F585C37-9867-49DF-89B3-62914D34E317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F585C37-9867-49DF-89B3-62914D34E317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F585C37-9867-49DF-89B3-62914D34E317}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
