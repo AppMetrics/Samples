@@ -1,8 +1,4 @@
-﻿// Copyright (c) Allan Hardy. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-using System;
-using System.IO;
+﻿using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,15 +15,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Api.InfluxDB.Sample
 {
     public class Startup
     {
+        public static readonly Uri ApiBaseAddress = new Uri("http://localhost:12345/");
         public static readonly string InfluxDbDatabase = "appmetricsinfluxsample";
         public static readonly Uri InfluxDbUri = new Uri("http://127.0.0.1:8086");
-        public static readonly Uri ApiBaseAddress = new Uri("http://localhost:50203/");
 
         public Startup(IHostingEnvironment env)
         {
@@ -104,22 +99,24 @@ namespace Api.InfluxDB.Sample
         {
             var scheduler = new DefaultTaskScheduler();
             var httpClient = new HttpClient
-            {
-                BaseAddress = ApiBaseAddress
-            };
+                             {
+                                 BaseAddress = ApiBaseAddress
+                             };
 
-            Task.Run(() => scheduler.Interval(
-                TimeSpan.FromMilliseconds(100),
-                TaskCreationOptions.None,
-                async () =>
-                {
-                    var satisfied = httpClient.GetAsync("api/apdexsatisfied", token);
-                    var tolerating = httpClient.GetAsync("api/apdextolerating", token);
-                    var frustrating = httpClient.GetAsync("api/apdexfrustrating", token);
+            Task.Run(
+                () => scheduler.Interval(
+                    TimeSpan.FromMilliseconds(100),
+                    TaskCreationOptions.None,
+                    async () =>
+                    {
+                        var satisfied = httpClient.GetAsync("api/apdexsatisfied", token);
+                        var tolerating = httpClient.GetAsync("api/apdextolerating", token);
+                        var frustrating = httpClient.GetAsync("api/apdexfrustrating", token);
 
-                    await Task.WhenAll(satisfied, tolerating, frustrating);
-                },
-                token), token);
+                        await Task.WhenAll(satisfied, tolerating, frustrating);
+                    },
+                    token),
+                token);
         }
     }
 }

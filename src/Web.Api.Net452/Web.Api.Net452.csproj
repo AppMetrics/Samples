@@ -60,7 +60,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.InfluxDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta5-build00250\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta5-build00251\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Formatters.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

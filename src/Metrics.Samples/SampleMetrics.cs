@@ -64,7 +64,7 @@ namespace Metrics.Samples
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.DataValue, () => _someValue);
 
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.CustomRatioGauge, 
-                () => _totalRequestsCounter.Value().Count / _meter.Value().FiveMinuteRate);
+                () => _totalRequestsCounter.GetValueOrDefault().Count / _meter.GetValueOrDefault().FiveMinuteRate);
             
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.Ratio, () => new HitRatioGauge(_meter, _timer, m => m.OneMinuteRate));
         }
