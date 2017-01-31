@@ -5,9 +5,9 @@
     "debugType": "portable"
   },
   "dependencies": {
-    "App.Metrics": "1.0.0-beta5-build00260",
-    "App.Metrics.Extensions.Mvc": "1.0.0-beta5-build00260",
-    "App.Metrics.Formatters.Json": "1.0.0-beta5-build00260",
+    "App.Metrics": "1.0.0-beta5-2",
+    "App.Metrics.Extensions.Mvc": "1.0.0-beta5-2",
+    "App.Metrics.Formatters.Json": "1.0.0-beta5-2",
     "HealthCheck.Samples": {
       "target": "project"
     },
