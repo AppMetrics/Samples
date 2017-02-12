@@ -43,28 +43,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-   <Reference Include="App.Metrics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.1.0.0-beta5-2\lib\net452\App.Metrics.dll</HintPath>
+    <Reference Include="App.Metrics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\App.Metrics.1.0.0-rc1-build00284\lib\net452\App.Metrics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Concurrency, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-beta5\lib\net45\App.Metrics.Concurrency.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-rc1-build00284\lib\net45\App.Metrics.Concurrency.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Owin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.1.0.0-alpha2\lib\net452\App.Metrics.Extensions.Owin.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.1.0.0-rc1-build00178\lib\net452\App.Metrics.Extensions.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Owin.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.WebApi.1.0.0-alpha2\lib\net452\App.Metrics.Extensions.Owin.WebApi.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Owin.WebApi.1.0.0-rc1-build00178\lib\net452\App.Metrics.Extensions.Owin.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.InfluxDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta5\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Formatters.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Formatters.Json.1.0.0-beta5-2\lib\net452\App.Metrics.Formatters.Json.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Formatters.Json.1.0.0-rc1-build00284\lib\net452\App.Metrics.Formatters.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -148,8 +148,8 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Polly, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Polly.4.3.0\lib\net45\Polly.dll</HintPath>
+    <Reference Include="Polly, Version=5.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Polly.5.0.5\lib\net45\Polly.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />

@@ -33,24 +33,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="App.Metrics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.1.0.0-beta5-2\lib\net452\App.Metrics.dll</HintPath>
+    <Reference Include="App.Metrics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\App.Metrics.1.0.0-rc1-build00284\lib\net452\App.Metrics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Concurrency, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-beta5\lib\net45\App.Metrics.Concurrency.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-rc1-build00284\lib\net45\App.Metrics.Concurrency.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.Console.1.0.0-beta5\lib\net452\App.Metrics.Extensions.Reporting.Console.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.Console.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.InfluxDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-beta5\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.TextFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.TextFile.1.0.0-beta5\lib\net452\App.Metrics.Extensions.Reporting.TextFile.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.TextFile.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.TextFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.DotNet.InternalAbstractions, Version=1.0.500.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -117,8 +117,8 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Polly, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Polly.4.3.0\lib\net45\Polly.dll</HintPath>
+    <Reference Include="Polly, Version=5.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Polly.5.0.5\lib\net45\Polly.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
@@ -150,7 +150,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Reflection" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>True</Private>

@@ -52,7 +52,7 @@ namespace Metrics.Samples
 
         public static class Counters
         {
-            private static readonly MetricTags Tags = new MetricTags().With("reporter", "influxdb");
+            private static readonly MetricTags Tags = new MetricTags("reporter", "influxdb");
 
             public static CounterOptions CommandCounter = new CounterOptions
             {
@@ -145,7 +145,7 @@ namespace Metrics.Samples
             {
                 Name = "Results Example",
                 MeasurementUnit = Unit.Items,
-                Tags = new MetricTags().With("reporter", "influxdb")
+                Tags = new MetricTags("reporter", "influxdb")
             };
         }
 
@@ -155,7 +155,7 @@ namespace Metrics.Samples
             {
                 Name = "Command Meter",
                 MeasurementUnit = Unit.Items,
-                Tags = new MetricTags().With("reporter", "influxdb")
+                Tags = new MetricTags("reporter", "influxdb")
             };
 
             public static MeterOptions Errors = new MeterOptions
@@ -185,7 +185,7 @@ namespace Metrics.Samples
                 MeasurementUnit = Unit.Requests,
                 DurationUnit = TimeUnit.Milliseconds,
                 RateUnit = TimeUnit.Milliseconds,                
-                Tags = new MetricTags().With("reporter", "influxdb")
+                Tags = new MetricTags("reporter", "influxdb")
             };
 
             public static TimerOptions SampleTimer = new TimerOptions

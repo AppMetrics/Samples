@@ -13,8 +13,7 @@ namespace Api.Sample
         {
             public static ApdexOptions TestApdex { get; } = new ApdexOptions
                                                             {
-                                                                Name = "Test Apdex",
-                                                                Tags = MetricTags.None
+                                                                Name = "Test Apdex"
                                                             };
         }
 
@@ -29,15 +28,13 @@ namespace Api.Sample
                     public static CounterOptions TestCounter { get; } = new CounterOptions
                                                                         {
                                                                             Name = "Test Counter",
-                                                                            MeasurementUnit = Unit.Calls,
-                                                                            Tags = MetricTags.None
+                                                                            MeasurementUnit = Unit.Calls
                                                                         };
 
                     public static CounterOptions TestCounterWithItem { get; } = new CounterOptions
                                                                                 {
                                                                                     Name = "Test Counter With Item",
-                                                                                    MeasurementUnit = Unit.Calls,
-                                                                                    Tags = MetricTags.None
+                                                                                    MeasurementUnit = Unit.Calls
                                                                                 };
                 }
 
@@ -46,8 +43,7 @@ namespace Api.Sample
                     public static GaugeOptions TestGauge { get; } = new GaugeOptions
                                                                     {
                                                                         Name = "Test Gauge",
-                                                                        MeasurementUnit = Unit.Items,
-                                                                        Tags = MetricTags.None
+                                                                        MeasurementUnit = Unit.Items
                                                                     };
                 }
 
@@ -56,15 +52,13 @@ namespace Api.Sample
                     public static HistogramOptions TestHistogram { get; } = new HistogramOptions
                                                                             {
                                                                                 Name = "Test Histogram",
-                                                                                MeasurementUnit = Unit.MegaBytes,
-                                                                                Tags = MetricTags.None
+                                                                                MeasurementUnit = Unit.MegaBytes
                                                                             };
 
                     public static HistogramOptions TestHistogramWithUserValue { get; } = new HistogramOptions
                                                                                          {
                                                                                              Name = "Test Histogram With User Value",
-                                                                                             MeasurementUnit = Unit.Bytes,
-                                                                                             Tags = MetricTags.None
+                                                                                             MeasurementUnit = Unit.Bytes
                                                                                          };
                 }
 
@@ -73,8 +67,7 @@ namespace Api.Sample
                     public static MeterOptions TestMeter { get; } = new MeterOptions
                                                                     {
                                                                         Name = "Test Meter",
-                                                                        MeasurementUnit = Unit.Calls,
-                                                                        Tags = MetricTags.None
+                                                                        MeasurementUnit = Unit.Calls
                                                                     };
                 }
 
@@ -86,7 +79,6 @@ namespace Api.Sample
                                                                         MeasurementUnit = Unit.Items,
                                                                         DurationUnit = TimeUnit.Milliseconds,
                                                                         RateUnit = TimeUnit.Milliseconds,
-                                                                        Tags = MetricTags.None,
                                                                         Reservoir = new Lazy<IReservoir>(() => new DefaultForwardDecayingReservoir())
                                                                     };
 
@@ -95,7 +87,6 @@ namespace Api.Sample
                                                                                      MeasurementUnit = Unit.Items,
                                                                                      DurationUnit = TimeUnit.Milliseconds,
                                                                                      RateUnit = TimeUnit.Milliseconds,
-                                                                                     Tags = MetricTags.None,
                                                                                      Reservoir =
                                                                                          new Lazy<IReservoir>(
                                                                                              () => new DefaultForwardDecayingReservoir())
@@ -112,15 +103,13 @@ namespace Api.Sample
                     public static CounterOptions TestCounter { get; } = new CounterOptions
                                                                         {
                                                                             Name = "Test Counter",
-                                                                            MeasurementUnit = Unit.Calls,
-                                                                            Tags = MetricTags.None
+                                                                            MeasurementUnit = Unit.Calls
                                                                         };
 
                     public static CounterOptions TestCounterWithItem { get; } = new CounterOptions
                                                                                 {
                                                                                     Name = "Test Counter With Item",
-                                                                                    MeasurementUnit = Unit.Calls,
-                                                                                    Tags = MetricTags.None
+                                                                                    MeasurementUnit = Unit.Calls
                                                                                 };
                 }
 
@@ -129,8 +118,7 @@ namespace Api.Sample
                     public static GaugeOptions TestGauge { get; } = new GaugeOptions
                                                                     {
                                                                         Name = "Test Gauge",
-                                                                        MeasurementUnit = Unit.Items,
-                                                                        Tags = MetricTags.None
+                                                                        MeasurementUnit = Unit.Items
                                                                     };
                 }
 
@@ -139,15 +127,13 @@ namespace Api.Sample
                     public static HistogramOptions TestHistogram { get; } = new HistogramOptions
                                                                             {
                                                                                 Name = "Test Histogram",
-                                                                                MeasurementUnit = Unit.MegaBytes,
-                                                                                Tags = MetricTags.None
+                                                                                MeasurementUnit = Unit.MegaBytes
                                                                             };
 
                     public static HistogramOptions TestHistogramWithUserValue { get; } = new HistogramOptions
                                                                                          {
                                                                                              Name = "Test Histogram With User Value",
-                                                                                             MeasurementUnit = Unit.Bytes,
-                                                                                             Tags = MetricTags.None
+                                                                                             MeasurementUnit = Unit.Bytes
                                                                                          };
                 }
 
@@ -156,8 +142,7 @@ namespace Api.Sample
                     public static MeterOptions TestMeter { get; } = new MeterOptions
                                                                     {
                                                                         Name = "Test Meter",
-                                                                        MeasurementUnit = Unit.Calls,
-                                                                        Tags = MetricTags.None
+                                                                        MeasurementUnit = Unit.Calls
                                                                     };
                 }
 
@@ -168,8 +153,7 @@ namespace Api.Sample
                                                                         Name = "Test Timer",
                                                                         MeasurementUnit = Unit.Items,
                                                                         DurationUnit = TimeUnit.Milliseconds,
-                                                                        RateUnit = TimeUnit.Milliseconds,
-                                                                        Tags = MetricTags.None
+                                                                        RateUnit = TimeUnit.Milliseconds
                                                                     };
 
                     public static TimerOptions TestTimerWithUserValue { get; } = new TimerOptions
@@ -177,8 +161,7 @@ namespace Api.Sample
                                                                                      Name = "Test Timer With User Value",
                                                                                      MeasurementUnit = Unit.Items,
                                                                                      DurationUnit = TimeUnit.Milliseconds,
-                                                                                     RateUnit = TimeUnit.Milliseconds,
-                                                                                     Tags = MetricTags.None
+                                                                                     RateUnit = TimeUnit.Milliseconds
                                                                                  };
                 }
             }
@@ -189,15 +172,13 @@ namespace Api.Sample
             public static CounterOptions TestCounter { get; } = new CounterOptions
                                                                 {
                                                                     Name = "Test Counter",
-                                                                    MeasurementUnit = Unit.Calls,
-                                                                    Tags = MetricTags.None
+                                                                    MeasurementUnit = Unit.Calls
                                                                 };
 
             public static CounterOptions TestCounterWithItem { get; } = new CounterOptions
                                                                         {
                                                                             Name = "Test Counter With Item",
-                                                                            MeasurementUnit = Unit.Calls,
-                                                                            Tags = MetricTags.None
+                                                                            MeasurementUnit = Unit.Calls
                                                                         };
         }
 
@@ -206,22 +187,19 @@ namespace Api.Sample
             public static GaugeOptions CacheHitRatioGauge { get; } = new GaugeOptions
                                                                      {
                                                                          Name = "Cache Gauge",
-                                                                         MeasurementUnit = Unit.Calls,
-                                                                         Tags = MetricTags.None
+                                                                         MeasurementUnit = Unit.Calls
                                                                      };
 
             public static GaugeOptions DerivedGauge { get; } = new GaugeOptions
                                                                {
                                                                    Name = "Derived Gauge",
-                                                                   MeasurementUnit = Unit.MegaBytes,
-                                                                   Tags = MetricTags.None
+                                                                   MeasurementUnit = Unit.MegaBytes
                                                                };
 
             public static GaugeOptions TestGauge { get; } = new GaugeOptions
                                                             {
                                                                 Name = "Test Gauge",
-                                                                MeasurementUnit = Unit.Bytes,
-                                                                Tags = MetricTags.None
+                                                                MeasurementUnit = Unit.Bytes
                                                             };
         }
 
@@ -230,22 +208,19 @@ namespace Api.Sample
             public static HistogramOptions TestHAdvancedistogram { get; } = new HistogramOptions
                                                                             {
                                                                                 Name = "Test Advanced Histogram",
-                                                                                MeasurementUnit = Unit.MegaBytes,
-                                                                                Tags = MetricTags.None
+                                                                                MeasurementUnit = Unit.MegaBytes
                                                                             };
 
             public static HistogramOptions TestHistogram { get; } = new HistogramOptions
                                                                     {
                                                                         Name = "Test Histogram",
-                                                                        MeasurementUnit = Unit.MegaBytes,
-                                                                        Tags = MetricTags.None
+                                                                        MeasurementUnit = Unit.MegaBytes
                                                                     };
 
             public static HistogramOptions TestHistogramWithUserValue { get; } = new HistogramOptions
                                                                                  {
                                                                                      Name = "Test Histogram With User Value",
-                                                                                     MeasurementUnit = Unit.Bytes,
-                                                                                     Tags = MetricTags.None
+                                                                                     MeasurementUnit = Unit.Bytes
                                                                                  };
         }
 
@@ -254,8 +229,7 @@ namespace Api.Sample
             public static MeterOptions CacheHits { get; } = new MeterOptions
                                                             {
                                                                 Name = "Cache Hits Meter",
-                                                                MeasurementUnit = Unit.Calls,
-                                                                Tags = MetricTags.None
+                                                                MeasurementUnit = Unit.Calls
                                                             };
         }
 
@@ -266,8 +240,7 @@ namespace Api.Sample
                                                                          Name = "Database Query Timer",
                                                                          MeasurementUnit = Unit.Calls,
                                                                          DurationUnit = TimeUnit.Milliseconds,
-                                                                         RateUnit = TimeUnit.Milliseconds,
-                                                                         Tags = MetricTags.None
+                                                                         RateUnit = TimeUnit.Milliseconds
                                                                      };
 
             public static TimerOptions TestTimer { get; } = new TimerOptions
@@ -275,8 +248,7 @@ namespace Api.Sample
                                                                 Name = "Test Timer",
                                                                 MeasurementUnit = Unit.Items,
                                                                 DurationUnit = TimeUnit.Milliseconds,
-                                                                RateUnit = TimeUnit.Milliseconds,
-                                                                Tags = MetricTags.None
+                                                                RateUnit = TimeUnit.Milliseconds
                                                             };
 
             public static TimerOptions TestTimerTwo { get; } = new TimerOptions
@@ -284,8 +256,7 @@ namespace Api.Sample
                                                                    Name = "Test Timer 2",
                                                                    MeasurementUnit = Unit.Items,
                                                                    DurationUnit = TimeUnit.Milliseconds,
-                                                                   RateUnit = TimeUnit.Milliseconds,
-                                                                   Tags = MetricTags.None
+                                                                   RateUnit = TimeUnit.Milliseconds
                                                                };
 
             public static TimerOptions TestTimerTwoWithUserValue { get; } = new TimerOptions
@@ -293,8 +264,7 @@ namespace Api.Sample
                                                                                 Name = "Test Timer 2 With User Value",
                                                                                 MeasurementUnit = Unit.Items,
                                                                                 DurationUnit = TimeUnit.Milliseconds,
-                                                                                RateUnit = TimeUnit.Milliseconds,
-                                                                                Tags = MetricTags.None
+                                                                                RateUnit = TimeUnit.Milliseconds
                                                                             };
 
             public static TimerOptions TestTimerWithUserValue { get; } = new TimerOptions
@@ -302,8 +272,7 @@ namespace Api.Sample
                                                                              Name = "Test Timer With User Value",
                                                                              MeasurementUnit = Unit.Items,
                                                                              DurationUnit = TimeUnit.Milliseconds,
-                                                                             RateUnit = TimeUnit.Milliseconds,
-                                                                             Tags = MetricTags.None
+                                                                             RateUnit = TimeUnit.Milliseconds
                                                                          };
         }
     }
