@@ -34,23 +34,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="App.Metrics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.1.0.0-rc1-build00284\lib\net452\App.Metrics.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.1.0.0-rc1-build00285\lib\net452\App.Metrics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Concurrency, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-rc1-build00284\lib\net45\App.Metrics.Concurrency.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Concurrency.1.0.0-rc1-build00285\lib\net45\App.Metrics.Concurrency.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.Console.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.Console.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.Console.1.0.0-rc1-build00272\lib\net452\App.Metrics.Extensions.Reporting.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.InfluxDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.InfluxDB.1.0.0-rc1-build00272\lib\net452\App.Metrics.Extensions.Reporting.InfluxDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="App.Metrics.Extensions.Reporting.TextFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.TextFile.1.0.0-rc1-build00271\lib\net452\App.Metrics.Extensions.Reporting.TextFile.dll</HintPath>
+      <HintPath>..\..\packages\App.Metrics.Extensions.Reporting.TextFile.1.0.0-rc1-build00272\lib\net452\App.Metrics.Extensions.Reporting.TextFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.DotNet.InternalAbstractions, Version=1.0.500.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
