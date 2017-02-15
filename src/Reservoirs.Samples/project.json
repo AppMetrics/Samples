@@ -5,12 +5,12 @@
     "debugType": "portable"
   },
   "dependencies": {
-    "App.Metrics": "1.0.0-rc1-build00285",
-    "App.Metrics.Extensions.Mvc": "1.0.0-rc1-build00285",
-    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-rc1-build00272",
-    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-rc1-build00272",
-    "App.Metrics.Extensions.Reservoirs.HdrHistogram": "1.0.0-beta6-build00257",
-    "App.Metrics.Formatters.Json": "1.0.0-rc1-build00285",
+    "App.Metrics": "1.0.0-rc1",
+    "App.Metrics.Extensions.Mvc": "1.0.0-rc1",
+    "App.Metrics.Extensions.Reporting.InfluxDB": "1.0.0-rc1",
+    "App.Metrics.Extensions.Reporting.TextFile": "1.0.0-rc1",
+    "App.Metrics.Extensions.Reservoirs.HdrHistogram": "1.0.0-beta6",
+    "App.Metrics.Formatters.Json": "1.0.0-rc1",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.1.0-preview4-final",
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
