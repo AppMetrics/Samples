@@ -23,6 +23,7 @@ namespace Api.InfluxDB.Sample
         public static readonly Uri ApiBaseAddress = new Uri("http://localhost:12345/");
         public static readonly string InfluxDbDatabase = "appmetricsinfluxsample";
         public static readonly Uri InfluxDbUri = new Uri("http://127.0.0.1:8086");
+        public static bool HaveAppRunSampleRequests = true;
 
         public Startup(IHostingEnvironment env)
         {
@@ -43,12 +44,15 @@ namespace Api.InfluxDB.Sample
             IApplicationLifetime lifetime)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddDebug();
 
             app.UseMetrics();
             app.UseMetricsReporting(lifetime);
 
-            RunRequestsToSample(lifetime.ApplicationStopping);
+            if (HaveAppRunSampleRequests)
+            {
+                RunSampleRequests(lifetime.ApplicationStopping);
+            }
 
             app.UseMvc();
         }
@@ -63,7 +67,6 @@ namespace Api.InfluxDB.Sample
 
             services
                 .AddMetrics(Configuration.GetSection("AppMetrics"), options => options.GlobalTags.Add("app", "sample app"))
-                .AddClockType<TestClock>()
                 .AddJsonSerialization()
                 .AddReporting(
                     factory =>
@@ -87,6 +90,8 @@ namespace Api.InfluxDB.Sample
             services.AddTransient<Func<double, RequestDurationForApdexTesting>>(
                 provider => { return apdexTSeconds => new RequestDurationForApdexTesting(apdexTSeconds); });
 
+            services.AddTransient<RequestErrorForErrorTesting>();
+
             services.AddTransient(
                 provider =>
                 {
@@ -95,7 +100,7 @@ namespace Api.InfluxDB.Sample
                 });
         }
 
-        private static void RunRequestsToSample(CancellationToken token)
+        private static void RunSampleRequests(CancellationToken token)
         {
             var scheduler = new DefaultTaskScheduler();
             var httpClient = new HttpClient
@@ -105,7 +110,7 @@ namespace Api.InfluxDB.Sample
 
             Task.Run(
                 () => scheduler.Interval(
-                    TimeSpan.FromMilliseconds(100),
+                    TimeSpan.FromMilliseconds(200),
                     TaskCreationOptions.None,
                     async () =>
                     {
@@ -114,6 +119,19 @@ namespace Api.InfluxDB.Sample
                         var frustrating = httpClient.GetAsync("api/apdexfrustrating", token);
 
                         await Task.WhenAll(satisfied, tolerating, frustrating);
+                    },
+                    token),
+                token);
+
+            Task.Run(
+                () => scheduler.Interval(
+                    TimeSpan.FromSeconds(1),
+                    TaskCreationOptions.None,
+                    async () =>
+                    {
+                        var satisfied = httpClient.GetAsync("api/error", token);
+
+                        await Task.WhenAll(satisfied);
                     },
                     token),
                 token);

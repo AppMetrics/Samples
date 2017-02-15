@@ -1,7 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 namespace Api.InfluxDB.Sample.ForTesting
 {
+    public class RequestErrorForErrorTesting
+    {
+        private static readonly Random Rnd = new Random();
+        private static readonly List<int> StatusCode = new List<int> {401, 404, 403, 500};
+
+        public int NextStatusCode => StatusCode[Rnd.Next(0, 3)];
+    }
+
     public class RequestDurationForApdexTesting
     {
         private const int MaxRequestDurationFactor = 1000;

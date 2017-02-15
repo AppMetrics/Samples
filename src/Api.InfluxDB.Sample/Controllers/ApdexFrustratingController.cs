@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Api.InfluxDB.Sample.ForTesting;
 using App.Metrics;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,11 @@ namespace Api.InfluxDB.Sample.Controllers
         }
 
         [HttpGet]
-        public int Get()
+        public async Task<int> Get()
         {
             var duration = _durationForApdexTesting.NextFrustratingDuration;
-            _metrics.Clock.Advance(TimeUnit.Milliseconds, duration);
+
+            await Task.Delay(duration, HttpContext.RequestAborted);
 
             return duration;
         }
