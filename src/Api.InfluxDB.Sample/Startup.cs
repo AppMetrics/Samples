@@ -6,7 +6,6 @@ using Api.InfluxDB.Sample.ForTesting;
 using App.Metrics.Extensions.Middleware.DependencyInjection.Options;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
-using App.Metrics.Infrastructure;
 using App.Metrics.Reporting.Interfaces;
 using App.Metrics.Scheduling;
 using Microsoft.AspNetCore.Builder;
@@ -27,11 +26,10 @@ namespace Api.InfluxDB.Sample
 
         public Startup(IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
-                .AddEnvironmentVariables();
+            var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).
+                                                     AddJsonFile("appsettings.json", true, true).
+                                                     AddJsonFile($"appsettings.{env.EnvironmentName}.json", true).
+                                                     AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -59,33 +57,30 @@ namespace Api.InfluxDB.Sample
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddLogging()
-                .AddRouting(options => { options.LowercaseUrls = true; });
+            services.AddLogging().AddRouting(options => { options.LowercaseUrls = true; });
 
             services.AddMvc(options => options.AddMetricsResourceFilter());
 
-            services
-                .AddMetrics(Configuration.GetSection("AppMetrics"), options => options.GlobalTags.Add("app", "sample app"))
-                .AddJsonSerialization()
-                .AddReporting(
-                    factory =>
-                    {
-                        factory.AddInfluxDb(
-                            new InfluxDBReporterSettings
-                            {
-                                HttpPolicy = new HttpPolicy
-                                             {
-                                                 FailuresBeforeBackoff = 3,
-                                                 BackoffPeriod = TimeSpan.FromSeconds(30),
-                                                 Timeout = TimeSpan.FromSeconds(3)
-                                             },
-                                InfluxDbSettings = new InfluxDBSettings(InfluxDbDatabase, InfluxDbUri),
-                                ReportInterval = TimeSpan.FromSeconds(5)
-                            });
-                    })
-                .AddHealthChecks()
-                .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
+            services.AddMetrics(Configuration.GetSection("AppMetrics"), options => options.GlobalTags.Add("app", "sample app")).
+                     AddJsonSerialization().
+                     AddReporting(
+                         factory =>
+                         {
+                             factory.AddInfluxDb(
+                                 new InfluxDBReporterSettings
+                                 {
+                                     HttpPolicy = new HttpPolicy
+                                                  {
+                                                      FailuresBeforeBackoff = 3,
+                                                      BackoffPeriod = TimeSpan.FromSeconds(30),
+                                                      Timeout = TimeSpan.FromSeconds(3)
+                                                  },
+                                     InfluxDbSettings = new InfluxDBSettings(InfluxDbDatabase, InfluxDbUri),
+                                     ReportInterval = TimeSpan.FromSeconds(5)
+                                 });
+                         }).
+                     AddHealthChecks().
+                     AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
 
             services.AddTransient<Func<double, RequestDurationForApdexTesting>>(
                 provider => { return apdexTSeconds => new RequestDurationForApdexTesting(apdexTSeconds); });
@@ -130,8 +125,9 @@ namespace Api.InfluxDB.Sample
                     async () =>
                     {
                         var satisfied = httpClient.GetAsync("api/error", token);
+                        var internalException = httpClient.GetAsync("api/error/500", token);
 
-                        await Task.WhenAll(satisfied);
+                        await Task.WhenAll(satisfied, internalException);
                     },
                     token),
                 token);

@@ -8,7 +8,7 @@
   "sharedCrosshair": false,
   "hideControls": false,
   "time": {
-    "from": "now-5m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -43,8 +43,8 @@
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
-          "text": "30s",
-          "value": "30s"
+          "text": "1m",
+          "value": "1m"
         },
         "hide": 0,
         "label": null,
@@ -53,12 +53,12 @@
           {
             "text": "30s",
             "value": "30s",
-            "selected": true
+            "selected": false
           },
           {
             "text": "1m",
             "value": "1m",
-            "selected": false
+            "selected": true
           },
           {
             "text": "10m",
@@ -140,7 +140,7 @@
   },
   "refresh": "5s",
   "schemaVersion": 13,
-  "version": 20,
+  "version": 28,
   "links": [],
   "gnetId": null,
   "rows": [
@@ -662,8 +662,8 @@
               "tags": [
                 {
                   "key": "env",
-                  "operator": "=~",
-                  "value": "/^$env$/"
+                  "operator": "=",
+                  "value": "stage"
                 }
               ]
             }
@@ -814,7 +814,301 @@
               "show": true
             }
           ]
+        }
+      ],
+      "showTitle": false,
+      "titleSize": "h6",
+      "height": "350px",
+      "repeat": null,
+      "repeatRowId": null,
+      "repeatIteration": null,
+      "collapse": false
+    },
+    {
+      "title": "Dashboard Row",
+      "panels": [
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "datasource": "appmetricsinfluxsample",
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 10,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": null,
+            "desc": false
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "$tag_group_item",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "group_item"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "application.httprequests__http_request_transactions",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "p95"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "Response Times / Endpoint",
+          "transform": "timeseries_aggregations",
+          "type": "table"
         },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "datasource": "appmetricsinfluxsample",
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 12,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": null,
+            "desc": false
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "rpm"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "$tag_group_item",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "group_item"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "application.httprequests__http_request_transactions",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rate1m"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "Throughput / Endpoint",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "datasource": "appmetricsinfluxsample",
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 11,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": null,
+            "desc": false
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "$tag_group_item",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "group_item"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "application.httprequests__endpoint_percentage_error_requests",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "Error Request Percentage / Endpoint",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        }
+      ],
+      "showTitle": false,
+      "titleSize": "h6",
+      "height": "300",
+      "repeat": null,
+      "repeatRowId": null,
+      "repeatIteration": null,
+      "collapse": false
+    },
+    {
+      "title": "Dashboard Row",
+      "panels": [
         {
           "aliasColors": {},
           "bars": false,
@@ -845,7 +1139,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 5,
+          "span": 8,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -953,7 +1247,7 @@
           "maxDataPoints": 3,
           "nullPointMode": "connected",
           "pieType": "pie",
-          "span": 3,
+          "span": 4,
           "strokeWidth": 1,
           "targets": [
             {
@@ -991,109 +1285,7 @@
       ],
       "showTitle": false,
       "titleSize": "h6",
-      "height": "350px",
-      "repeat": null,
-      "repeatRowId": null,
-      "repeatIteration": null,
-      "collapse": false
-    },
-    {
-      "title": "Dashboard Row",
-      "panels": [
-        {
-          "id": 10,
-          "title": "Transactions",
-          "error": false,
-          "span": 5,
-          "editable": true,
-          "type": "table",
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "group_item"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "p95"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "application.httprequests__http_request_transactions",
-              "alias": "$tag_group_item"
-            }
-          ],
-          "styles": [
-            {
-              "type": "date",
-              "pattern": "Time",
-              "dateFormat": "YYYY-MM-DD HH:mm:ss"
-            },
-            {
-              "unit": "ms",
-              "type": "number",
-              "decimals": 2,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "colorMode": null,
-              "pattern": "/.*/",
-              "thresholds": []
-            }
-          ],
-          "transform": "timeseries_aggregations",
-          "pageSize": null,
-          "showHeader": true,
-          "columns": [
-            {
-              "text": "Current",
-              "value": "current"
-            }
-          ],
-          "scroll": true,
-          "fontSize": "100%",
-          "sort": {
-            "col": null,
-            "desc": false
-          },
-          "datasource": "appmetricsinfluxsample",
-          "links": []
-        }
-      ],
-      "showTitle": false,
-      "titleSize": "h6",
-      "height": "350",
+      "height": 250,
       "repeat": null,
       "repeatRowId": null,
       "repeatIteration": null,

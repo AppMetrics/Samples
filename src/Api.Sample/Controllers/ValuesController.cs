@@ -96,7 +96,7 @@ namespace Api.Sample.Controllers
             }
 
             using (_metrics.Measure.Timer.Time(MetricsRegistry.Timers.TestTimerTwo, "value1"))
-            {
+            { 
                 Thread.Sleep(20);
             }
 

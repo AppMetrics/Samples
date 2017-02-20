@@ -86,7 +86,7 @@ namespace Reservoirs.Samples
 
         private static void RunRequestsToSample(CancellationToken token)
         {
-            var scheduler = new DefaultTaskScheduler();
+            var scheduler = new DefaultTaskScheduler(); 
             var httpClient = new HttpClient
                              {
                                  BaseAddress = ApiBaseAddress
