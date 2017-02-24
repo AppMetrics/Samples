@@ -8,7 +8,7 @@
   "sharedCrosshair": false,
   "hideControls": false,
   "time": {
-    "from": "now-1h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -140,7 +140,7 @@
   },
   "refresh": "5s",
   "schemaVersion": 13,
-  "version": 28,
+  "version": 29,
   "links": [],
   "gnetId": null,
   "rows": [
@@ -870,7 +870,7 @@
           ],
           "targets": [
             {
-              "alias": "$tag_group_item",
+              "alias": "$tag_route",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -881,7 +881,7 @@
                 },
                 {
                   "params": [
-                    "group_item"
+                    "route"
                   ],
                   "type": "tag"
                 },
@@ -899,14 +899,14 @@
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "p95"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
@@ -960,7 +960,7 @@
           ],
           "targets": [
             {
-              "alias": "$tag_group_item",
+              "alias": "$tag_route",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -971,7 +971,7 @@
                 },
                 {
                   "params": [
-                    "group_item"
+                    "route"
                   ],
                   "type": "tag"
                 },
@@ -1050,7 +1050,7 @@
           ],
           "targets": [
             {
-              "alias": "$tag_group_item",
+              "alias": "$tag_route",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -1061,7 +1061,7 @@
                 },
                 {
                   "params": [
-                    "group_item"
+                    "route"
                   ],
                   "type": "tag"
                 },
@@ -1261,7 +1261,7 @@
                   "type": "tag"
                 }
               ],
-              "measurement": "application.httprequests__http_error_requests__items",
+              "measurement": "application.httprequests__http_error_request_transactions__items",
               "policy": "default",
               "refId": "A",
               "resultFormat": "time_series",
