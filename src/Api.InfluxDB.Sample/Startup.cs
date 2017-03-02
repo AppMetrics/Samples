@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.InfluxDB.Sample.ForTesting;
+using App.Metrics;
 using App.Metrics.Extensions.Middleware.DependencyInjection.Options;
 using App.Metrics.Extensions.Reporting.InfluxDB;
 using App.Metrics.Extensions.Reporting.InfluxDB.Client;
@@ -79,7 +80,12 @@ namespace Api.InfluxDB.Sample
                                      ReportInterval = TimeSpan.FromSeconds(5)
                                  });
                          }).
-                     AddHealthChecks().
+                     AddHealthChecks(
+                         factory =>
+                         {
+                             factory.RegisterPingHealthCheck("google ping", "google.com", TimeSpan.FromSeconds(10));
+                             factory.RegisterHttpGetHealthCheck("github", new Uri("https://github.com/"), TimeSpan.FromSeconds(10));
+                         }).
                      AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
 
             services.AddTransient<Func<double, RequestDurationForApdexTesting>>(
