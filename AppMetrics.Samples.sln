@@ -1,18 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HealthCheck.Samples", "src\HealthCheck.Samples\HealthCheck.Samples.xproj", "{3A92B51E-86B6-4578-9C09-035D75AEE6A1}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Metrics.Samples", "src\Metrics.Samples\Metrics.Samples.xproj", "{A1B6876F-B04E-4699-AB38-0E102B73CAEC}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Api.Sample", "src\Api.Sample\Api.Sample.xproj", "{57254CDD-01C2-44B7-A528-D82CD918C7F1}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "App.Sample", "src\App.Sample\App.Sample.xproj", "{80DA80D4-BE67-4228-92C0-FF441ACC1BF4}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Mvc.Sample", "src\Mvc.Sample\Mvc.Sample.xproj", "{B42B22C4-C87A-499A-AB4F-06EE599AF2FB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafana_dashboards", "{78AD3B65-F6E0-469E-B028-9F3D71B1AF5B}"
 	ProjectSection(SolutionItems) = preProject
 		grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json = grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json
@@ -24,6 +14,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthCheck.Samples", "src\HealthCheck.Samples\HealthCheck.Samples.csproj", "{3A92B51E-86B6-4578-9C09-035D75AEE6A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metrics.Samples", "src\Metrics.Samples\Metrics.Samples.csproj", "{A1B6876F-B04E-4699-AB38-0E102B73CAEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Sample", "src\Api.Sample\Api.Sample.csproj", "{57254CDD-01C2-44B7-A528-D82CD918C7F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Sample", "src\App.Sample\App.Sample.csproj", "{80DA80D4-BE67-4228-92C0-FF441ACC1BF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.Sample", "src\Mvc.Sample\Mvc.Sample.csproj", "{B42B22C4-C87A-499A-AB4F-06EE599AF2FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
