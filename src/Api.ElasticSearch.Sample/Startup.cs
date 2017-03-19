@@ -107,7 +107,6 @@ namespace Api.ElasticSearch.Sample
                              {
                                  BaseAddress = ApiBaseAddress
                              };
-            return;
             Task.Run(
                 () => scheduler.Interval(
                     TimeSpan.FromMilliseconds(200),
