@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Api.ElasticSearch.Sample", "src\Api.ElasticSearch.Sample\Api.ElasticSearch.Sample.xproj", "{8FA8D248-3DA8-4C29-B436-0FFDD7BEF400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.ElasticSearch.Sample", "src\Api.ElasticSearch.Sample\Api.ElasticSearch.Sample.csproj", "{8FA8D248-3DA8-4C29-B436-0FFDD7BEF400}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26DDEBFD-A1E1-4BCA-B586-F15586817ADF}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafana_dashboards", "{C5958FB5-627D-47F2-AC01-2E02358E3311}"
+	ProjectSection(SolutionItems) = preProject
+		grafana_dashboards\Api.ElasticSearch.Sample.Apdex.json = grafana_dashboards\Api.ElasticSearch.Sample.Apdex.json
 	EndProjectSection
 EndProject
 Global
@@ -23,5 +28,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5958FB5-627D-47F2-AC01-2E02358E3311} = {26DDEBFD-A1E1-4BCA-B586-F15586817ADF}
 	EndGlobalSection
 EndGlobal

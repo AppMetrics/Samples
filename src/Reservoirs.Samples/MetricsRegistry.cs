@@ -15,17 +15,14 @@ namespace Reservoirs.Samples
                                                                    {
                                                                        Context = Context,
                                                                        Name = "uniform",
-                                                                       Reservoir = new Lazy<IReservoir>(
-                                                                           () => new DefaultAlgorithmRReservoir())
+                                                                       Reservoir = () => new DefaultAlgorithmRReservoir()
                                                                    };
 
         public static TimerOptions TimerUsingExponentialForwardDecayingReservoir = new TimerOptions
                                                                                    {
                                                                                        Context = Context,
                                                                                        Name = "exponentially-decaying",
-                                                                                       Reservoir =
-                                                                                           new Lazy<IReservoir>(
-                                                                                               () => new DefaultForwardDecayingReservoir())
+                                                                                       Reservoir = () => new DefaultForwardDecayingReservoir()
                                                                                    };
 
         //public static TimerOptions TimerUsingHdrHistogramReservoir = new TimerOptions
@@ -40,8 +37,7 @@ namespace Reservoirs.Samples
                                                                       {
                                                                           Context = Context,
                                                                           Name = "sliding-window",
-                                                                          Reservoir = new Lazy<IReservoir>(
-                                                                              () => new DefaultSlidingWindowReservoir())
+                                                                          Reservoir = () => new DefaultSlidingWindowReservoir()
                                                                       };
     }
 }

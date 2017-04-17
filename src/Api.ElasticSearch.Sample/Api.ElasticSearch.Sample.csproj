@@ -4,22 +4,18 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <DebugType>portable</DebugType>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>Mvc.Sample</AssemblyName>
+    <AssemblyName>Api.ElasticSearch.Sample</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>Mvc.Sample</PackageId>
+    <PackageId>Api.ElasticSearch.Sample</PackageId>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="wwwroot\**\*;Views\**\*">
+    <None Update="wwwroot\**\*;Views">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HealthCheck.Samples\HealthCheck.Samples.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,17 +23,19 @@
     <PackageReference Include="App.Metrics.Concurrency" Version="1.1.0-alpha-0439" />
     <PackageReference Include="App.Metrics.Extensions.Middleware" Version="1.1.0-alpha-0439" />
     <PackageReference Include="App.Metrics.Extensions.Mvc" Version="1.1.0-alpha-0439" />
+    <PackageReference Include="App.Metrics.Extensions.Reporting.ElasticSearch" Version="1.1.0-alpha-0342" />
     <PackageReference Include="App.Metrics.Formatters.Json" Version="1.1.0-alpha-0439" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration.Tools" Version="1.1.0-preview4-final" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="1.4.0-dev-10136" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
   </ItemGroup>
 
 </Project>

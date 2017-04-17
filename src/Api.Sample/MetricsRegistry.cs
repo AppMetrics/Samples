@@ -79,7 +79,7 @@ namespace Api.Sample
                                                                         MeasurementUnit = Unit.Items,
                                                                         DurationUnit = TimeUnit.Milliseconds,
                                                                         RateUnit = TimeUnit.Milliseconds,
-                                                                        Reservoir = new Lazy<IReservoir>(() => new DefaultForwardDecayingReservoir())
+                                                                        Reservoir = () => new DefaultForwardDecayingReservoir()
                                                                     };
 
                     public static TimerOptions TestTimerWithUserValue { get; } = new TimerOptions
@@ -87,9 +87,7 @@ namespace Api.Sample
                                                                                      MeasurementUnit = Unit.Items,
                                                                                      DurationUnit = TimeUnit.Milliseconds,
                                                                                      RateUnit = TimeUnit.Milliseconds,
-                                                                                     Reservoir =
-                                                                                         new Lazy<IReservoir>(
-                                                                                             () => new DefaultForwardDecayingReservoir())
+                                                                                     Reservoir = () => new DefaultForwardDecayingReservoir()
                                                                                  };
                 }
             }
