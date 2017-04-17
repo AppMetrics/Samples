@@ -17,8 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="App.Metrics" Version="1.1.0-alpha-0439" />
-    <PackageReference Include="App.Metrics.Concurrency" Version="1.1.0-alpha-0439" />
+    <PackageReference Include="App.Metrics" Version="1.1.0-alpha" />
+    <PackageReference Include="App.Metrics.Concurrency" Version="1.1.0-alpha" />
   </ItemGroup>
 
 </Project>
