@@ -23,14 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="App.Metrics" Version="1.1.0" />
-    <PackageReference Include="App.Metrics.Concurrency" Version="1.1.0" />
-    <PackageReference Include="App.Metrics.Extensions.Middleware" Version="1.1.0" />
-    <PackageReference Include="App.Metrics.Extensions.Mvc" Version="1.1.0" />
-    <PackageReference Include="App.Metrics.Extensions.Reporting.Console" Version="1.1.0-alpha" />
-    <PackageReference Include="App.Metrics.Extensions.Reporting.InfluxDB" Version="1.1.0" />
-    <PackageReference Include="App.Metrics.Extensions.Reporting.TextFile" Version="1.1.0-alpha" />
-    <PackageReference Include="App.Metrics.Formatters.Json" Version="1.1.0" />
+    <PackageReference Include="App.Metrics" Version="1.2.0-alpha-0540" />
+    <PackageReference Include="App.Metrics.Concurrency" Version="1.2.0-alpha-0540" />
+    <PackageReference Include="App.Metrics.Extensions.Middleware" Version="1.2.0-alpha-0540" />
+    <PackageReference Include="App.Metrics.Extensions.Mvc" Version="1.2.0-alpha-0540" />
+    <PackageReference Include="App.Metrics.Extensions.Reporting.Console" Version="1.2.0-alpha-0366" />
+    <PackageReference Include="App.Metrics.Extensions.Reporting.InfluxDB" Version="1.2.0-alpha-0394" />
+    <PackageReference Include="App.Metrics.Extensions.Reporting.TextFile" Version="1.2.0-alpha-0366" />
+    <PackageReference Include="App.Metrics.Formatters.Json" Version="1.2.0-alpha-0540" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration.Tools" Version="1.1.0-preview4-final" />

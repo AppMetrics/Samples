@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Threading;
 using App.Metrics;
-using App.Metrics.Core;
 using App.Metrics.Counter;
 using App.Metrics.Counter.Abstractions;
-using App.Metrics.Data;
 using App.Metrics.Gauge;
 using App.Metrics.Histogram.Abstractions;
+using App.Metrics.Meter;
 using App.Metrics.Meter.Abstractions;
-using App.Metrics.Meter.Extensions;
 using App.Metrics.Timer.Abstractions;
 
 namespace Metrics.Samples
 {
     public class SampleMetrics
     {
+        private static IMetrics _metrics;
+
         /// <summary>
         ///     count the current concurrent requests
         /// </summary>
@@ -45,14 +45,13 @@ namespace Metrics.Samples
         /// </summary>
         private readonly ICounter _totalRequestsCounter;
 
-        private static IMetrics _metrics;
-
         private double _someValue = 1;
 
         public SampleMetrics(IMetrics metrics)
         {
             _metrics = metrics;
-            _concurrentRequestsCounter = _metrics.Provider.Counter.Instance(SampleMetricsRegistry.Counters.ConcurrentRequestsCounter);
+            _concurrentRequestsCounter =
+                _metrics.Provider.Counter.Instance(SampleMetricsRegistry.Counters.ConcurrentRequestsCounter);
             _histogramOfData = _metrics.Provider.Histogram.Instance(SampleMetricsRegistry.Histograms.ResultsExample);
             _meter = _metrics.Provider.Meter.Instance(SampleMetricsRegistry.Meters.Requests);
             _setCounter = _metrics.Provider.Counter.Instance(SampleMetricsRegistry.Counters.SetCounter);
@@ -63,10 +62,11 @@ namespace Metrics.Samples
             // define a simple gauge that will provide the instant value of someValue when requested
             _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.DataValue, () => _someValue);
 
-            _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.CustomRatioGauge, 
+            _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.CustomRatioGauge,
                 () => _totalRequestsCounter.GetValueOrDefault().Count / _meter.GetValueOrDefault().FiveMinuteRate);
-            
-            _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.Ratio, () => new HitRatioGauge(_meter, _timer, m => m.OneMinuteRate));
+
+            _metrics.Measure.Gauge.SetValue(SampleMetricsRegistry.Gauges.Ratio,
+                () => new HitRatioGauge(_meter, _timer, m => m.OneMinuteRate));
         }
 
         public void Request(int i)
@@ -76,13 +76,13 @@ namespace Metrics.Samples
 
             for (var j = 0; j < 5; j++)
             {
-                var multiContextInstanceMetrics = new MultiContextInstanceMetrics("Sample Instance " + i.ToString(), _metrics);
+                var multiContextInstanceMetrics = new MultiContextInstanceMetrics("Sample Instance " + i, _metrics);
                 multiContextInstanceMetrics.Run();
             }
 
             using (_timer.NewContext(i.ToString())) // measure until disposed
             {
-                _someValue *= (i + 1); // will be reflected in the gauge 
+                _someValue *= i + 1; // will be reflected in the gauge 
 
                 _concurrentRequestsCounter.Increment(); // increment concurrent requests counter
 
@@ -90,7 +90,8 @@ namespace Metrics.Samples
 
                 _meter.Mark(); // signal a new request to the meter
 
-                _histogramOfData.Update(new Random().Next(5000), "user-value-" + i); // update the histogram with the input data
+                _histogramOfData.Update(new Random().Next(5000),
+                    "user-value-" + i); // update the histogram with the input data
 
                 var item = "Item " + new Random().Next(5);
                 _setCounter.Increment(item);
@@ -98,7 +99,7 @@ namespace Metrics.Samples
                 _setMeter.Mark(item);
 
                 // simulate doing some work
-                var ms = Math.Abs((int)(new Random().Next(3000)));
+                var ms = Math.Abs(new Random().Next(3000));
                 Thread.Sleep(ms);
 
                 _concurrentRequestsCounter.Decrement(); // decrement number of concurrent requests
