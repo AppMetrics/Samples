@@ -1,6 +1,9 @@
 ﻿using App.Metrics;
-using App.Metrics.Core.Options;
-using App.Metrics.Tagging;
+using App.Metrics.Counter;
+using App.Metrics.Gauge;
+using App.Metrics.Histogram;
+using App.Metrics.Meter;
+using App.Metrics.Timer;
 
 namespace Metrics.Samples
 {

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using App.Metrics;
 using App.Metrics.Counter;
-using App.Metrics.Counter.Abstractions;
 using App.Metrics.Gauge;
-using App.Metrics.Histogram.Abstractions;
+using App.Metrics.Histogram;
 using App.Metrics.Meter;
-using App.Metrics.Meter.Abstractions;
-using App.Metrics.Timer.Abstractions;
+using App.Metrics.Timer;
+using System.Threading;
 
 namespace Metrics.Samples
 {
@@ -74,11 +72,8 @@ namespace Metrics.Samples
             var multiContextMetrics = new MultiContextMetrics(_metrics);
             multiContextMetrics.Run();
 
-            for (var j = 0; j < 5; j++)
-            {
-                var multiContextInstanceMetrics = new MultiContextInstanceMetrics("Sample Instance " + i, _metrics);
-                multiContextInstanceMetrics.Run();
-            }
+            var multiContextInstanceMetrics = new MultiContextInstanceMetrics(_metrics);
+            multiContextInstanceMetrics.Run();
 
             using (_timer.NewContext(i.ToString())) // measure until disposed
             {

@@ -4,13 +4,13 @@ using App.Metrics.Health;
 
 namespace Api.Sample.HealthChecks
 {
-    public class SampleHealthCheckUnHealthy : HealthCheck
+    public class SampleHealthCheckUnHealthy : App.Metrics.Health.HealthCheck
     {
         public SampleHealthCheckUnHealthy() : base("Sample UnHealthy") { }
 
-        protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
         {
-            return Task.FromResult(HealthCheckResult.Unhealthy("OOPS"));
+            return new ValueTask<HealthCheckResult>(HealthCheckResult.Unhealthy("OOPS"));
         }
     }
 }

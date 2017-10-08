@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using App.Metrics.Configuration;
-using App.Metrics.Data;
-using App.Metrics.DependencyInjection;
-using App.Metrics.Formatters.Json;
-using App.Metrics.Infrastructure;
-using HealthCheck.Samples;
+﻿using HealthCheck.Samples;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Mvc.Sample
 {
@@ -29,12 +20,8 @@ namespace Mvc.Sample
 
         public IConfigurationRoot Configuration { get; set; }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -45,8 +32,6 @@ namespace Mvc.Sample
             }
 
             app.UseStaticFiles();
-
-            app.UseMetrics();
 
             app.UseMvc(routes =>
             {
@@ -59,29 +44,9 @@ namespace Mvc.Sample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {            
-            services
-                .AddLogging()
-                .AddRouting(options => { options.LowercaseUrls = true; });
-
+            services.AddTransient<IDatabase, Database>();            
+            services.AddRouting(options => { options.LowercaseUrls = true; });
             services.AddMvc(options => options.AddMetricsResourceFilter());
-
-            services.AddTransient<IDatabase, Database>();
-
-            services
-                .AddMetrics(options =>
-                {
-                    options.DefaultContextLabel = "Mvc.Sample";
-                    options.WithGlobalTags((globalTags, envInfo) =>
-                    {
-                        globalTags.Add("host", envInfo.HostName);
-                        globalTags.Add("machine_name", envInfo.MachineName);
-                        globalTags.Add("app_name", envInfo.EntryAssemblyName);
-                        globalTags.Add("app_version", envInfo.EntryAssemblyVersion);
-                    });
-                })
-                .AddJsonSerialization()
-                .AddHealthChecks()
-                .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
         }
     }        
 }

@@ -8,9 +8,9 @@ namespace Mvc.Sample.HealthChecks
     {
         public SampleHealthCheckUnHealthy() : base("Sample UnHealthy") { }
 
-        protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken token = default)
         {
-            return Task.FromResult(HealthCheckResult.Unhealthy("OOPS"));
+            return new ValueTask<HealthCheckResult>(HealthCheckResult.Unhealthy("OOPS"));
         }
     }
 }

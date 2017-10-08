@@ -1,18 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26906.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafana_dashboards", "{78AD3B65-F6E0-469E-B028-9F3D71B1AF5B}"
 	ProjectSection(SolutionItems) = preProject
-		grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json = grafana_dashboards\Api.Sample-OAuth2.InfluxDB.json
 		grafana_dashboards\Api.Sample.InfluxDB.json = grafana_dashboards\Api.Sample.InfluxDB.json
 		grafana_dashboards\App.Sample.InfluxDB.json = grafana_dashboards\App.Sample.InfluxDB.json
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26DDEBFD-A1E1-4BCA-B586-F15586817ADF}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthCheck.Samples", "src\HealthCheck.Samples\HealthCheck.Samples.csproj", "{3A92B51E-86B6-4578-9C09-035D75AEE6A1}"
@@ -24,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Sample", "src\App.Sample\App.Sample.csproj", "{80DA80D4-BE67-4228-92C0-FF441ACC1BF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.Sample", "src\Mvc.Sample\Mvc.Sample.csproj", "{B42B22C4-C87A-499A-AB4F-06EE599AF2FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{C4D94B5D-9542-46F6-B317-C82FD3A17327}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +50,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A92B51E-86B6-4578-9C09-035D75AEE6A1} = {C4D94B5D-9542-46F6-B317-C82FD3A17327}
+		{A1B6876F-B04E-4699-AB38-0E102B73CAEC} = {C4D94B5D-9542-46F6-B317-C82FD3A17327}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A814E9D1-F36B-47D8-AA41-3D32B22F5171}
 	EndGlobalSection
 EndGlobal

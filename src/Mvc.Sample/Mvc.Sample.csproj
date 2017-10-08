@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
-    <DebugType>portable</DebugType>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>Mvc.Sample</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Mvc.Sample</PackageId>
-    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,24 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="App.Metrics" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Concurrency" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Extensions.Middleware" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Extensions.Mvc" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Extensions.Reporting.Console" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Extensions.Reporting.InfluxDB" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Extensions.Reporting.TextFile" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Formatters.Json" Version="1.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration.Tools" Version="1.1.0-preview4-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="2.0.0-*" />
+    <PackageReference Include="App.Metrics.Health" Version="2.0.0-*" />
+    <PackageReference Include="App.Metrics.AspNetCore.Health" Version="2.0.0-*" />
+    <PackageReference Include="App.Metrics.AspNetCore.Reporting" Version="2.0.0-*" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-*" />
+    <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="3.3.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

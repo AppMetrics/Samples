@@ -1,5 +1,8 @@
 ﻿using System.IO;
+using App.Metrics.AspNetCore;
+using App.Metrics.AspNetCore.Health;
 using Microsoft.AspNetCore.Hosting;
+using Serilog;
 
 namespace Mvc.Sample
 {
@@ -12,6 +15,9 @@ namespace Mvc.Sample
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseHealth()
+                .UseMetrics()
+                .UseSerilog()
                 .Build();
 
             host.Run();

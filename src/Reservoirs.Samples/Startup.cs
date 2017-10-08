@@ -1,26 +1,17 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Extensions.Reporting.InfluxDB;
-using App.Metrics.Extensions.Reporting.InfluxDB.Client;
-using App.Metrics.Filtering;
-using App.Metrics.Reporting.Interfaces;
 using App.Metrics.Scheduling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Reservoirs.Samples
 {
     public class Startup
     {
-        public static readonly Uri InfluxDbUri = new Uri("http://127.0.0.1:8086");
         public static readonly Uri ApiBaseAddress = new Uri("http://localhost:50202/");
 
         public Startup(IHostingEnvironment env)
@@ -35,76 +26,36 @@ namespace Reservoirs.Samples
 
         public IConfigurationRoot Configuration { get; set; }
 
-        public void Configure(
-            IApplicationBuilder app,
-            IHostingEnvironment env,
-            ILoggerFactory loggerFactory,
-            IApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.RollingFile(Path.Combine($@"C:\logs\{env.ApplicationName}", "log-{Date}.txt"))
-                .CreateLogger();
-
-            loggerFactory.AddSerilog(Log.Logger);
-
-            app.UseMetrics();
-            app.UseMetricsReporting(lifetime);
-
-            RunRequestsToSample(lifetime.ApplicationStopping);
+            RunRequestsToSample();
 
             app.UseMvc();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddLogging()
-                .AddRouting(options => { options.LowercaseUrls = true; });
-
+            services.AddRouting(options => { options.LowercaseUrls = true; });
             services.AddMvc(options => options.AddMetricsResourceFilter());
-
-            var filter = new DefaultMetricsFilter();
-            filter.WhereContext(c => c == MetricsRegistry.Context);
-
-            services
-                .AddMetrics()
-                .AddGlobalFilter(filter)
-                .AddJsonSerialization()
-                .AddReporting(
-                    factory =>
-                    {
-                        factory.AddInfluxDb(
-                            new InfluxDBReporterSettings
-                            {
-                                InfluxDbSettings = new InfluxDBSettings("appmetricsreservoirs", InfluxDbUri),
-                                ReportInterval = TimeSpan.FromSeconds(5)
-                            });
-                    })
-                .AddMetricsMiddleware(options => options.HealthEndpointEnabled = false);
         }
 
-        private static void RunRequestsToSample(CancellationToken token)
+        private static void RunRequestsToSample()
         {
-            var scheduler = new DefaultTaskScheduler(); 
             var httpClient = new HttpClient
-                             {
-                                 BaseAddress = ApiBaseAddress
-                             };
+            {
+                BaseAddress = ApiBaseAddress
+            };
 
-            Task.Run(() => scheduler.Interval(
-                TimeSpan.FromMilliseconds(100),
-                TaskCreationOptions.None,
-                async () =>
-                {
-                    var uniform = httpClient.GetStringAsync("api/reservoirs/uniform");
-                    var exponentiallyDecaying = httpClient.GetStringAsync("api/reservoirs/exponentially-decaying");
-                    var slidingWindow = httpClient.GetStringAsync("api/reservoirs/sliding-window");
-                    var hdr = httpClient.GetStringAsync("api/reservoirs/high-dynamic-range");
+            var requestSamplesScheduler = new AppMetricsTaskScheduler(TimeSpan.FromMilliseconds(100), async () =>
+            {
+                var uniform = httpClient.GetStringAsync("api/reservoirs/uniform");
+                var exponentiallyDecaying = httpClient.GetStringAsync("api/reservoirs/exponentially-decaying");
+                var slidingWindow = httpClient.GetStringAsync("api/reservoirs/sliding-window");
 
-                    await Task.WhenAll(uniform, exponentiallyDecaying, slidingWindow, hdr);
-                },
-                token), token);
+                await Task.WhenAll(uniform, exponentiallyDecaying, slidingWindow);
+            });
+
+            requestSamplesScheduler.Start();
         }
     }
 }

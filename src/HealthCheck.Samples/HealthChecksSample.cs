@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Core;
 using App.Metrics.Health;
 
 namespace HealthCheck.Samples
@@ -24,18 +23,17 @@ namespace HealthCheck.Samples
         private readonly IDatabase _database;
 
         public DatabaseHealthCheck(IDatabase database)
-            : base("DatabaseCheck")
+            : base("Referencing Assembly - DatabaseCheck")
         {
             _database = database;
         }
 
-        protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken token = default)
         {
-            // exceptions will be caught and 
-            // the result will be unhealthy
+            // exceptions will be caught and the result will be unhealthy
             _database.Ping();
 
-            return Task.FromResult(HealthCheckResult.Healthy());
+            return new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy());
         }
     }
 }

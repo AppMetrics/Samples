@@ -1,19 +1,18 @@
 using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Core;
 using App.Metrics.Health;
 
 namespace Api.Sample.HealthChecks
 {
-    public class SampleDegradedHealthCheck : HealthCheck
+    public class SampleDegradedHealthCheck : App.Metrics.Health.HealthCheck
     {
         public SampleDegradedHealthCheck() : base("Sample Degraded")
         {
         }
 
-        protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
         {
-            return Task.FromResult(HealthCheckResult.Degraded("Degraded"));
+            return new ValueTask<HealthCheckResult>(HealthCheckResult.Degraded("Degraded"));
         }
     }
 }

@@ -3,19 +3,19 @@
   <PropertyGroup>
     <Description>Metrics.Samples Class Library</Description>
     <Authors>allan.hardy</Authors>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
-    <DebugType>portable</DebugType>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>Metrics.Samples</AssemblyName>
     <PackageId>Metrics.Samples</PackageId>
-    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="App.Metrics" Version="1.2.0" />
-    <PackageReference Include="App.Metrics.Concurrency" Version="1.2.0" />
+    <PackageReference Include="App.Metrics.Core" Version="2.0.0-*" />
   </ItemGroup>
 
 </Project>

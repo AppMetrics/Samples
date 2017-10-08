@@ -1,60 +1,48 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using App.Metrics;
-using App.Metrics.Core;
-using App.Metrics.Extensions.Reporting.Console;
-using App.Metrics.Extensions.Reporting.InfluxDB;
-using App.Metrics.Extensions.Reporting.InfluxDB.Client;
-using App.Metrics.Extensions.Reporting.TextFile;
+using App.Metrics.Extensions.Configuration;
+using App.Metrics.Extensions.DependencyInjection;
 using App.Metrics.Filtering;
+using App.Metrics.Filters;
 using App.Metrics.Health;
-using App.Metrics.Reporting.Abstractions;
-using App.Metrics.Reporting.Interfaces;
+using App.Metrics.Reporting;
 using App.Metrics.Scheduling;
-using HealthCheck.Samples;
 using Metrics.Samples;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using Serilog;
 
 namespace App.Sample
 {
     public class Host
     {
+        private static IServiceProvider ServiceProvider { get; set; }
+
+        private static IConfigurationRoot Configuration { get; set; }
+
         public static void Main()
         {
             var cpuUsage = new CpuUsage();
             cpuUsage.Start();
 
-            IServiceCollection serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            ConfigureMetrics(serviceCollection);
+            Init();      
+
+            var metrics = ServiceProvider.GetRequiredService<IMetricsRoot>();
+            var reporter = ServiceProvider.GetRequiredService<IRunMetricsReports>();
 
             var process = Process.GetCurrentProcess();
+            var simpleMetrics = new SampleMetrics(metrics);
+            var setCounterSample = new SetCounterSample(metrics);
+            var setMeterSample = new SetMeterSample(metrics);
+            var userValueHistogramSample = new UserValueHistogramSample(metrics);
+            var userValueTimerSample = new UserValueTimerSample(metrics);
 
-            var provider = serviceCollection.BuildServiceProvider();
-
-            var application = new Application(provider);
-            var scheduler = new DefaultTaskScheduler();
-
-            var simpleMetrics = new SampleMetrics(application.Metrics);
-            var setCounterSample = new SetCounterSample(application.Metrics);
-            var setMeterSample = new SetMeterSample(application.Metrics);
-            var userValueHistogramSample = new UserValueHistogramSample(application.Metrics);
-            var userValueTimerSample = new UserValueTimerSample(application.Metrics);
-
-            var cancellationTokenSource = new CancellationTokenSource();
-
-            //cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(10));
-
-            var task = scheduler.Interval(
-                TimeSpan.FromMilliseconds(300), TaskCreationOptions.LongRunning,() =>
+            var scheduler = new AppMetricsTaskScheduler(TimeSpan.FromMilliseconds(300), () =>
                 {
-                    using (application.Metrics.Measure.Apdex.Track(AppMetricsRegistry.ApdexScores.AppApdex))
+                    using (metrics.Measure.Apdex.Track(AppMetricsRegistry.ApdexScores.AppApdex))
                     {
                         setCounterSample.RunSomeRequests();
                         setMeterSample.RunSomeRequests();
@@ -63,29 +51,39 @@ namespace App.Sample
                         simpleMetrics.RunSomeRequests();
                     }
 
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.Errors, () => 1);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.PercentGauge, () => 1);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.ApmGauge, () => 1);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.ParenthesisGauge, () => 1);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.GaugeWithNoValue, () => double.NaN);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.Errors, () => 1);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.PercentGauge, () => 1);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.ApmGauge, () => 1);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.ParenthesisGauge, () => 1);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.Gauges.GaugeWithNoValue, () => double.NaN);
 
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.CpuUsageTotal, () =>
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.CpuUsageTotal, () =>
                     {
                         cpuUsage.CallCpu();
                         return cpuUsage.CpuUsageTotal;
                     });
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPagedMemorySizeGauge, () => process.PagedMemorySize64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekPagedMemorySizeGauge, () => process.PeakPagedMemorySize64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekVirtualMemorySizeGauge,
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPagedMemorySizeGauge, () => process.PagedMemorySize64);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekPagedMemorySizeGauge, () => process.PeakPagedMemorySize64);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekVirtualMemorySizeGauge,
                         () => process.PeakVirtualMemorySize64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekWorkingSetSizeGauge, () => process.WorkingSet64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPrivateMemorySizeGauge, () => process.PrivateMemorySize64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessVirtualMemorySizeGauge, () => process.VirtualMemorySize64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.SystemNonPagedMemoryGauge, () => process.NonpagedSystemMemorySize64);
-                    application.Metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.SystemPagedMemorySizeGauge, () => process.PagedSystemMemorySize64);
-                }, cancellationTokenSource.Token);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPeekWorkingSetSizeGauge, () => process.WorkingSet64);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessPrivateMemorySizeGauge, () => process.PrivateMemorySize64);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.ProcessVirtualMemorySizeGauge, () => process.VirtualMemorySize64);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.SystemNonPagedMemoryGauge, () => process.NonpagedSystemMemorySize64);
+                    metrics.Measure.Gauge.SetValue(AppMetricsRegistry.ProcessMetrics.SystemPagedMemorySizeGauge, () => process.PagedSystemMemorySize64);
 
-            application.Reporter.RunReports(application.Metrics, cancellationTokenSource.Token);
+                    return Task.CompletedTask;
+                });
+
+            scheduler.Start();
+
+            var reportSchedule = new AppMetricsTaskScheduler(
+                TimeSpan.FromSeconds(3),
+                async () =>
+                {
+                    await Task.WhenAll(reporter.RunAllAsync());
+                });
+            reportSchedule.Start();
 
             Console.WriteLine("Report Cancelled...");
 
@@ -94,100 +92,74 @@ namespace App.Sample
 
         private static void ConfigureMetrics(IServiceCollection services)
         {
-            services
-                .AddMetrics(options =>
+            var influxFilter = new MetricsFilter()
+                .WhereTaggedWithKeyValue(new TagKeyValueFilter {{"reporter", "influxdb"}});
+
+            var metrics = new MetricsBuilder()
+                .Configuration.Configure(options =>
                 {
-                    options.ReportingEnabled = true;
                     options.GlobalTags.Add("env", "stage");
                 })
-                .AddHealthChecks(factory =>
+                .Configuration.ReadFrom(Configuration)
+                .OutputEnvInfo.AsPlainText()
+                .OutputMetrics.AsPlainText()
+                .OutputMetrics.AsJson()
+                .Report.ToInfluxDb(options =>
                 {
-                    factory.RegisterProcessPrivateMemorySizeHealthCheck("Private Memory Size", 200);
-                    factory.RegisterProcessVirtualMemorySizeHealthCheck("Virtual Memory Size", 200);
-                    factory.RegisterProcessPhysicalMemoryHealthCheck("Working Set", 200);
-
-                    factory.Register("DatabaseConnected", () => Task.FromResult("Database Connection OK"));
-                    factory.Register("DiskSpace", () =>
-                    {
-                        var freeDiskSpace = GetFreeDiskSpace();
-
-                        return Task.FromResult(freeDiskSpace <= 512
-                            ? HealthCheckResult.Unhealthy("Not enough disk space: {0}", freeDiskSpace)
-                            : HealthCheckResult.Unhealthy("Disk space ok: {0}", freeDiskSpace));
-                    });
+                    options.InfluxDb.BaseUri = new Uri("http://127.0.0.1:8086");
+                    options.InfluxDb.Database = "appmetrics";
+                    options.FlushInterval = TimeSpan.FromSeconds(5);
+                    options.Filter = influxFilter;
                 })
-                .AddReporting(factory =>
+                .Report.ToConsole(TimeSpan.FromSeconds(5))
+                .Report.ToTextFile(options =>
                 {
-                    factory.AddConsole(new ConsoleReporterSettings
-                    {
-                        ReportInterval = TimeSpan.FromSeconds(5),
-                    });
-
-                    factory.AddTextFile(new TextFileReporterSettings
-                    {
-                        ReportInterval = TimeSpan.FromSeconds(30),
-                        FileName = @"C:\metrics\sample.txt"
-                    });
-
-                    var influxFilter = new DefaultMetricsFilter()
-                        .WhereMetricTaggedWithKeyValue(new TagKeyValueFilter { { "reporter", "influxdb" } })
-                        .WithHealthChecks(true)
-                        .WithEnvironmentInfo(true);
-
-                    factory.AddInfluxDb(new InfluxDBReporterSettings
-                    {
-                        HttpPolicy = new HttpPolicy
-                        {
-                            FailuresBeforeBackoff = 3,
-                            BackoffPeriod = TimeSpan.FromSeconds(30),
-                            Timeout = TimeSpan.FromSeconds(3)
-                        },
-                        InfluxDbSettings = new InfluxDBSettings("appmetrics", new Uri("http://127.0.0.1:8086")),
-                        ReportInterval = TimeSpan.FromSeconds(5)
-                    }, influxFilter);
-                });
+                    options.FlushInterval = TimeSpan.FromSeconds(30);
+                    options.OutputPathAndFileName = @"C:\metrics\sample.txt";
+                })
+                .BuildAndAddTo(services);            
         }
 
-        private static void ConfigureServices(IServiceCollection services)
+        private static void Init()
         {
-            var env = PlatformServices.Default.Application;
+            var services = new ServiceCollection();
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            Configuration = builder.Build();
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.RollingFile(Path.Combine($@"C:\logs\{env.ApplicationName}", "log-{Date}.txt"))
+                .WriteTo.LiterateConsole()
+                .WriteTo.Seq("http://localhost:5341")
                 .CreateLogger();
 
-            var loggerFactory = new LoggerFactory();
-            loggerFactory.AddConsole((l, s) => s == LogLevel.Trace);
-            loggerFactory.AddSerilog(Log.Logger);
+            ConfigureMetrics(services);
 
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
-            services.AddLogging();
-            services.AddTransient<IDatabase, Database>();
+            var health = AppMetricsHealth.CreateDefaultBuilder()
+                .HealthChecks.AddCheck("DatabaseConnected",
+                    () => new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Database Connection OK")))
+                .HealthChecks.AddProcessPrivateMemorySizeCheck("Private Memory Size", 200)
+                .HealthChecks.AddProcessVirtualMemorySizeCheck("Virtual Memory Size", 200)
+                .HealthChecks.AddProcessPhysicalMemoryCheck("Working Set", 200)
+                .HealthChecks.AddCheck("DiskSpace", () =>
+                {
+                    var freeDiskSpace = GetFreeDiskSpace();
+
+                    return new ValueTask<HealthCheckResult>(freeDiskSpace <= 512
+                        ? HealthCheckResult.Unhealthy("Not enough disk space: {0}", freeDiskSpace)
+                        : HealthCheckResult.Unhealthy("Disk space ok: {0}", freeDiskSpace));
+                })
+                .BuildAndAddTo(services);
+
+            ServiceProvider = services.BuildServiceProvider();
+
+            int GetFreeDiskSpace()
+            {
+                return 1024;
+            }
         }
-
-        private static int GetFreeDiskSpace()
-        {
-            return 1024;
-        }
-    }
-
-    public class Application
-    {
-        public Application(IServiceProvider provider)
-        {
-            Metrics = provider.GetRequiredService<IMetrics>();
-
-            var reporterFactory = provider.GetRequiredService<IReportFactory>();
-            Reporter = reporterFactory.CreateReporter();
-
-            Token = new CancellationToken();
-        }
-
-        public IMetrics Metrics { get; set; }
-
-        public IReporter Reporter { get; set; }
-
-        public CancellationToken Token { get; set; }
     }
 }

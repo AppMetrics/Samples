@@ -8,9 +8,9 @@ namespace HealthCheck.Samples
     {
         public HealthCheckDegraded() : base("Referencing Assembly - Sample Degraded") { }
 
-        protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken token = default)
         {
-            return Task.FromResult(HealthCheckResult.Degraded());
+            return new ValueTask<HealthCheckResult>(HealthCheckResult.Degraded());
         }
     }
 }

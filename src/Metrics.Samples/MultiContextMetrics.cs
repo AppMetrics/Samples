@@ -1,7 +1,7 @@
 ﻿using App.Metrics;
-using App.Metrics.Counter.Abstractions;
-using App.Metrics.Meter.Abstractions;
-using App.Metrics.Timer.Abstractions;
+using App.Metrics.Counter;
+using App.Metrics.Meter;
+using App.Metrics.Timer;
 
 namespace Metrics.Samples
 {
@@ -33,7 +33,7 @@ namespace Metrics.Samples
         private readonly ITimer _instanceTimer;
         private static IMetrics _metrics;
 
-        public MultiContextInstanceMetrics(string instanceName, IMetrics metrics)
+        public MultiContextInstanceMetrics(IMetrics metrics)
         {
             _metrics = metrics;
             _instanceCounter = _metrics.Provider.Counter.Instance(SampleMetricsRegistry.Counters.SampleCounter);
@@ -50,10 +50,7 @@ namespace Metrics.Samples
 
         public void RunSample()
         {
-            for (var i = 0; i < 5; i++)
-            {
-                new MultiContextInstanceMetrics("Sample Instance " + i, _metrics).Run();
-            }
+            new MultiContextInstanceMetrics(_metrics).Run();
         }
     }
 }

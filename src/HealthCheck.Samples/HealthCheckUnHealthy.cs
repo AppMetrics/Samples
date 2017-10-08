@@ -1,7 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics;
-using App.Metrics.Core;
 using App.Metrics.Health;
 
 namespace HealthCheck.Samples
@@ -12,9 +10,9 @@ namespace HealthCheck.Samples
         {
         }
 
-        protected override Task<HealthCheckResult> CheckAsync(CancellationToken token = default(CancellationToken))
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken token = default)
         {
-            return Task.FromResult(HealthCheckResult.Unhealthy("OOPS"));
+            return new ValueTask<HealthCheckResult>(HealthCheckResult.Unhealthy("OOPS"));
         }
     }
 }

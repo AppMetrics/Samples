@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using App.Metrics;
-using App.Metrics.Core;
-using App.Metrics.Core.Options;
 using App.Metrics.Gauge;
+using App.Metrics.Meter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Sample.Controllers

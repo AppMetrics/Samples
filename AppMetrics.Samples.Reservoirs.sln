@@ -1,14 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26906.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana_dashboards", "grafana_dashboards", "{78AD3B65-F6E0-469E-B028-9F3D71B1AF5B}"
 	ProjectSection(SolutionItems) = preProject
 		grafana_dashboards\Reservoir.Samples.InfluxDB.json = grafana_dashboards\Reservoir.Samples.InfluxDB.json
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26DDEBFD-A1E1-4BCA-B586-F15586817ADF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservoirs.Samples", "src\Reservoirs.Samples\Reservoirs.Samples.csproj", "{4F585C37-9867-49DF-89B3-62914D34E317}"
 EndProject
@@ -25,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {067EA8E4-3876-4F72-BBE4-22112D68CA23}
 	EndGlobalSection
 EndGlobal

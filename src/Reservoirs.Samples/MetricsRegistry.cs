@@ -1,9 +1,7 @@
-﻿using System;
-using App.Metrics.Abstractions.ReservoirSampling;
-using App.Metrics.Core.Options;
-using App.Metrics.ReservoirSampling.ExponentialDecay;
+﻿using App.Metrics.ReservoirSampling.ExponentialDecay;
 using App.Metrics.ReservoirSampling.SlidingWindow;
 using App.Metrics.ReservoirSampling.Uniform;
+using App.Metrics.Timer;
 
 namespace Reservoirs.Samples
 {
@@ -24,14 +22,6 @@ namespace Reservoirs.Samples
                                                                                        Name = "exponentially-decaying",
                                                                                        Reservoir = () => new DefaultForwardDecayingReservoir()
                                                                                    };
-
-        //public static TimerOptions TimerUsingHdrHistogramReservoir = new TimerOptions
-        //                                                             {
-        //                                                                 Context = Context,
-        //                                                                 Name = "high-dynamic-range",
-        //                                                                 Reservoir = new Lazy<IReservoir>(
-        //                                                                     () => new HdrHistogramReservoir())
-        //                                                             };
 
         public static TimerOptions TimerUsingSlidingWindowReservoir = new TimerOptions
                                                                       {

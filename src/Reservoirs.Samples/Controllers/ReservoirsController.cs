@@ -45,17 +45,6 @@ namespace Reservoirs.Samples.Controllers
             return "OK";
         }
 
-        [HttpGet("high-dynamic-range")]
-        public async Task<string> HdrHistogram()
-        {
-            //using (_metrics.Measure.Timer.Time(MetricsRegistry.TimerUsingHdrHistogramReservoir))
-            //{
-            //    await Delay();
-            //}
-
-            return await Task.FromResult("OK");
-        }
-
         [HttpGet("uniform")]
         public async Task<string> Uniform()
         {

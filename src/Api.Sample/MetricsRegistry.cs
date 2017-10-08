@@ -1,9 +1,12 @@
 ﻿using System;
 using App.Metrics;
-using App.Metrics.Abstractions.ReservoirSampling;
-using App.Metrics.Core.Options;
+using App.Metrics.Apdex;
+using App.Metrics.Counter;
+using App.Metrics.Gauge;
+using App.Metrics.Histogram;
+using App.Metrics.Meter;
 using App.Metrics.ReservoirSampling.ExponentialDecay;
-using App.Metrics.Tagging;
+using App.Metrics.Timer;
 
 namespace Api.Sample
 {

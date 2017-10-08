@@ -1,6 +1,6 @@
 ﻿using System;
 using App.Metrics;
-using App.Metrics.Histogram.Abstractions;
+using App.Metrics.Histogram;
 
 namespace Metrics.Samples
 {
@@ -19,7 +19,7 @@ namespace Metrics.Samples
 
         public void Process(string documentId)
         {
-            var results = GetResultsForDocument(documentId);
+            var results = GetResultsForDocument();
             _histogram.Update(results.Length, documentId);
         }
 
@@ -33,7 +33,7 @@ namespace Metrics.Samples
         }
         }
 
-        private int[] GetResultsForDocument(string documentId)
+        private int[] GetResultsForDocument()
         {
             return new int[new Random().Next() % 100];
         }
