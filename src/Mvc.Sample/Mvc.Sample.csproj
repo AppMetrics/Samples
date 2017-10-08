@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="2.0.0-*" />
-    <PackageReference Include="App.Metrics.Health" Version="2.0.0-*" />
     <PackageReference Include="App.Metrics.AspNetCore.Health" Version="2.0.0-*" />
     <PackageReference Include="App.Metrics.AspNetCore.Reporting" Version="2.0.0-*" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-*" />
